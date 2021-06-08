@@ -26,7 +26,11 @@
                             <label for="cargo">Cargo</label>
                             <input type="text" class="form-control" id="cargo" placeholder="Cargo">
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="form-group">
+                            <label class="mr-2">Capturando</label>
+                            <a class="btn btn-secondary" href="/capturando">Capturando rostro</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
                 </div>
             </div>

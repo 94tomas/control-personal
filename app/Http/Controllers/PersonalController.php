@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class PersonalController extends Controller
 {
@@ -80,5 +82,23 @@ class PersonalController extends Controller
     public function destroy($id)
     {
         //
+    }
+    /**
+     *
+     *
+     *
+     *
+     */
+    public function testCapture()
+    {
+        $process = new Process(['py', 'C:/laragon/www/personal-control/public/scripts/capturandoRostros.py']);
+        $process->run();
+
+        // executes after the command finishes
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        return back();
     }
 }

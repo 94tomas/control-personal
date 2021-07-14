@@ -14,13 +14,39 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
+    // return view('welcome');
 });
 
 Auth::routes();
+Route::get('register', function () {
+    return redirect('/');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@index')->name('home');
 
-Route::resource('personal', 'PersonalController');
+Route::middleware(['auth'])->group(function () {
+    /**
+     * admin
+     */
+    Route::middleware(['role:super'])->group(function () {
 
-Route::get('capturando', 'PersonalController@testCapture');
+    });
+    /**
+     * user
+     */
+    Route::middleware(['role:admin'])->group(function () {
+
+    });
+    /**
+     * both
+     */
+    Route::middleware(['role:super,admin'])->group(function () {
+        // route personal
+        Route::get('personal/lista', 'EmpleadoController@index');
+        Route::get('personal/nuevo', 'EmpleadoController@create');
+
+        // route cargos
+        Route::get('cargos/lista', 'CargosController@index');
+    });
+});

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCargosTable extends Migration
+class CreateHorariosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCargosTable extends Migration
      */
     public function up()
     {
-        Schema::create('cargos', function (Blueprint $table) {
+        Schema::create('horarios', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('nombre_cargo', 100);
-            $table->string('descripcion', 255);
-            $table->double('tarifa', 20, 2);
-            $table->enum('tipo', ['por_hora', 'por_semana', 'por_mes', 'por_anio']);
+            $table->time('hora_inicio');
+            $table->time('hora_descanso')->nullable();
+            $table->time('hora_fin_descanso')->nullable();
+            $table->time('hora_fin');
             $table->boolean('estado')->default(true);
             $table->timestamps();
         });
@@ -32,6 +32,6 @@ class CreateCargosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cargos');
+        Schema::dropIfExists('horarios');
     }
 }

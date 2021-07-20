@@ -1,3 +1,7 @@
 .wrapper .content-wrapper {
     height: 100% !important;
 }
+.preloader {
+    color: #fff;
+    background: rgba(108, 117, 125, 1);
+}

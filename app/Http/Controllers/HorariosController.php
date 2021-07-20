@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Cargo;
+use App\Models\Horario;
 
-class CargosController extends Controller
+class HorariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,9 @@ class CargosController extends Controller
      */
     public function index()
     {
-        $lista = Cargo::orderBy('created_at', 'DESC')
+        $data = Horario::orderBy('created_at', 'DESC')
             ->paginate(10);
-        // dd($lista);
-        return view('cargos.index')->with('lista', $lista);
+        return view('horarios.index')->with('lista', $data);
     }
 
     /**
@@ -27,7 +26,7 @@ class CargosController extends Controller
      */
     public function create()
     {
-        return view('cargos.create');
+        return view('horarios.create');
     }
 
     /**
@@ -39,20 +38,18 @@ class CargosController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre_cargo' => 'required',
-            'descripcion' => 'required',
-            'tipo' => 'required',
-            'tarifa' => 'required'
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
         ]);
 
-        $cargo = new Cargo;
-        $cargo->nombre_cargo = $request->nombre_cargo;
-        $cargo->descripcion = $request->descripcion;
-        $cargo->tipo = $request->tipo;
-        $cargo->tarifa = $request->tarifa;
-        $cargo->save();
+        $nuevo = new Horario;
+        $nuevo->hora_inicio = $request->hora_inicio;
+        $nuevo->hora_descanso = $request->hora_descanso;
+        $nuevo->hora_fin = $request->hora_fin;
+        $nuevo->hora_fin_descanso = $request->hora_fin_descanso;
+        $nuevo->save();
 
-        return redirect('/cargos/lista');
+        return redirect('/horarios/lista');
     }
 
     /**
@@ -74,8 +71,8 @@ class CargosController extends Controller
      */
     public function edit($id)
     {
-        $dCargo = Cargo::find($id);
-        return view('cargos.edit')->with('cargo', $dCargo);
+        $hor = Horario::find($id);
+        return view('horarios.edit')->with('horario', $hor);
     }
 
     /**
@@ -88,21 +85,19 @@ class CargosController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nombre_cargo' => 'required',
-            'descripcion' => 'required',
-            'tipo' => 'required',
-            'tarifa' => 'required'
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
         ]);
 
-        $cargo = Cargo::find($id);
-        $cargo->nombre_cargo = $request->nombre_cargo;
-        $cargo->descripcion = $request->descripcion;
-        $cargo->tipo = $request->tipo;
-        $cargo->tarifa = $request->tarifa;
-        $cargo->estado = ($request->estado)?1:0;
-        $cargo->save();
+        $editar = Horario::find($id);
+        $editar->hora_inicio = $request->hora_inicio;
+        $editar->hora_descanso = $request->hora_descanso;
+        $editar->hora_fin = $request->hora_fin;
+        $editar->hora_fin_descanso = $request->hora_fin_descanso;
+        $editar->estado = ($request->estado)?1:0;
+        $editar->save();
 
-        return redirect('/cargos/lista');
+        return redirect('/horarios/lista');
     }
 
     /**
@@ -113,7 +108,7 @@ class CargosController extends Controller
      */
     public function destroy($id)
     {
-        $del = Cargo::find($id);
+        $del = Horario::find($id);
         $del->delete();
         return back();
     }

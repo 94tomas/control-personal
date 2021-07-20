@@ -16,7 +16,7 @@ class CreateEmpleadosTable extends Migration
         Schema::create('empleados', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('cod_empleado')->unique();
+            $table->string('cod_empleado')->unique()->nullable();
             $table->string('nombres');
             $table->string('apellidos', 100);
             $table->string('direccion');
@@ -25,7 +25,9 @@ class CreateEmpleadosTable extends Migration
             $table->enum('genero', ['hombre', 'mujer']);
             $table->boolean('estado')->default(true);
             $table->foreignId('cargo_id');
+            $table->foreignId('horario_id');
             $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('cascade');
+            $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

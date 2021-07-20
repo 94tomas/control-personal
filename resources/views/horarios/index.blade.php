@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h2 class="m-0">Lista de empleados</h2>
+                    <h2 class="m-0">Horarios</h2>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Lista de empleados</li>
+                        <li class="breadcrumb-item active">Horarios</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,10 +28,10 @@
 
             <div class="card card-secondary">
                 <div class="card-header">
-                    <a href="/personal/nuevo" class="btn btn-primary">Nuevo</a>
+                    <a href="/horarios/nuevo" class="btn btn-primary">Nuevo</a>
                     <div class="card-tools mr-0">
                         <div class="input-group input-group-sm mt-1" style="width: 250px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                          <input type="text" name="table_search" class="form-control float-right" placeholder="Buscar">
 
                           <div class="input-group-append">
                             <button type="submit" class="btn btn-default">
@@ -46,10 +46,10 @@
                     <table class="table table-hover text-nowrap table-bordered">
                         <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Empleado</th>
-                                <th>Cargo</th>
-                                <th>Horario</th>
+                                <th>Hora entrada</th>
+                                <th>Hora salida</th>
+                                <th>Hora descanso</th>
+                                <th>Hora fin descanso</th>
                                 <th>Estado</th>
                                 <th style="width: 50px" class="text-right">Acción</th>
                             </tr>
@@ -57,10 +57,10 @@
                         <tbody>
                             @foreach ($lista as $item)
                             <tr>
-                                <td>{{ $item->cod_empleado }}</td>
-                                <td>{{ $item->nombres }} {{ $item->apellidos }}</td>
-                                <td>{{ $item->cargo->nombre_cargo }}</td>
-                                <td>{{ $item->horario->hora_inicio }} - {{ $item->horario->hora_fin }}</td>
+                                <td>{{ $item->hora_inicio }}</td>
+                                <td>{{ $item->hora_fin }}</td>
+                                <td>{{ $item->hora_descanso }}</td>
+                                <td>{{ $item->hora_fin_descanso }}</td>
                                 <td>
                                     @if ($item->estado)
                                     <span class="badge bg-success">Activo</span>
@@ -69,27 +69,12 @@
                                     @endif
                                 </td>
                                 <td class="text-right">
-                                    <!-- Default dropleft button -->
-                                    <div class="btn-group dropleft">
-                                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Acciones
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <!-- Dropdown menu links -->
-                                            <a class="dropdown-item" href="#">Asistencia</a>
-                                            <a class="dropdown-item" href="#">Permisos</a>
-                                            <a class="dropdown-item" href="#">Vacaciones</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/personal/editar/{{ $item->id }}">Editar</a>
-                                            <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#removeModal" data-id="{{ $item->id }}">Eliminar</a>
-                                        </div>
-                                    </div>
-                                    {{-- <a href="/personal/editar/{{ $item->id }}" class="btn btn-primary btn-xs" style="width:25px;">
+                                    <a href="/horarios/editar/{{ $item->id }}" class="btn btn-primary btn-xs" style="width:25px;">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-danger btn-xs" style="width:25px;" data-toggle="modal" data-target="#removeModal" data-id="{{ $item->id }}">
+                                    <a href="#" class="btn btn-danger btn-xs" style="width:25px;" data-toggle="modal" data-target="#deleteModal" data-id="{{ $item->id }}">
                                         <i class="fa fa-trash-o"></i>
-                                    </a> --}}
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
@@ -139,6 +124,7 @@
                 </div>
             </div>
             <!-- /.card -->
+
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -146,14 +132,14 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="alert alert-danger" style="display:none"></div>
         <div class="modal-content">
             <div class="modal-body">
                 <div class="card-body pb-1">
                     <h5 class="modal-title">¿Desea continuar?</h5>
-                    El empleado se eliminará permanentente del sistema
+                    El horario se eliminará permanentente del sistema
                 </div>
             </div>
             <form action="" method="post">
@@ -173,11 +159,11 @@
 @section('scripts')
 <script>
     $(document).ready(function(){
-        $('#removeModal').on('show.bs.modal', function (event) {
+        $('#deleteModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('id') // Extract info from data-* attributes
             var modal = $(this)
-            modal.find('.modal-content form').attr('action', `${window.location.protocol}//${window.location.hostname}/personal/${recipient}`)
+            modal.find('.modal-content form').attr('action', `${window.location.protocol}//${window.location.hostname}/horarios/${recipient}`)
         })
     });
 </script>

@@ -47,8 +47,8 @@
                         <p>Asistencia</p>
                     </a>
                 </li>
-                <li class="nav-item {{ Request::is('personal/*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
+                {{-- <li class="nav-item {{ (Request::is('personal/*') || Request::is('horarios/*')) ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ (Request::is('personal/*') || Request::is('horarios/*')) ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
                             Empleados
@@ -57,47 +57,47 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/personal/nuevo" class="nav-link {{ Request::is('personal/nuevo') ? 'active' : '' }}">
-                                <i class="fa fa-angle-right nav-icon"></i>
-                                <p>Nuevo registro</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/personal/lista" class="nav-link {{ Request::is('personal/lista') ? 'active' : '' }}">
+                            <a href="/personal/lista" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
                                 <i class="fa fa-angle-right nav-icon"></i>
                                 <p>Lista de empleados</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/horarios/lista" class="nav-link {{ Request::is('horarios/*') ? 'active' : '' }}">
                                 <i class="fa fa-angle-right nav-icon"></i>
                                 <p>Horarios</p>
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-file-text-o"></i>
-                        <p>Deducciones</p>
+                    <a href="/personal/lista" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>Personal</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/cargos/lista" class="nav-link {{ Request::is('cargos/lista') ? 'active' : '' }}">
+                    <a href="/horarios/lista" class="nav-link {{ Request::is('horarios/*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-clock-o"></i>
+                        <p>Horarios</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/cargos/lista" class="nav-link {{ Request::is('cargos/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-briefcase"></i>
                         <p>Cargos</p>
                     </a>
                 </li>
+                {{-- <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-file-text-o"></i>
+                        <p>Deducciones</p>
+                    </a>
+                </li> --}}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-list"></i>
                         <p>Nómina</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-clock-o"></i>
-                        <p>Horarios</p>
                     </a>
                 </li>
                 {{-- <li class="nav-item">

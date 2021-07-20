@@ -23,10 +23,9 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed" data-panel-auto-height-mode="height">
     <div id="app" class="wrapper">
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            {{-- <img class="animation__shake" src="{{ asset('/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60"> --}}
+        {{-- <div class="preloader flex-column justify-content-center align-items-center">
             <div class="animation__shake">Cargando...</div>
-        </div>
+        </div> --}}
 
         <!-- Navbar -->
         @include('layouts.navbar')
@@ -46,10 +45,10 @@
         <!-- Main Footer -->
         @include('layouts.footer')
     </div>
-
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <script src="{{ asset('js/OverlayScrollbars.min.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

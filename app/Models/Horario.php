@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cargo extends Model
+class Horario extends Model
 {
     // empleado
     public function empleado()

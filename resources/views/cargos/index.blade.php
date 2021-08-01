@@ -84,12 +84,17 @@
                                     @endif
                                 </td>
                                 <td class="text-right">
-                                    <a href="/cargos/editar/{{ $item->id }}" class="btn btn-primary btn-xs" style="width:25px;">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-xs" style="width:25px;" data-toggle="modal" data-target="#delModal" data-id="{{ $item->id }}">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
+                                    <!-- Default dropleft button -->
+                                    <div class="btn-group dropleft">
+                                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Acciones
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <!-- Dropdown menu links -->
+                                            <a class="dropdown-item" href="/cargos/editar/{{ $item->id }}">Editar</a>
+                                            <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#delModal" data-id="{{ $item->id }}">Eliminar</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach

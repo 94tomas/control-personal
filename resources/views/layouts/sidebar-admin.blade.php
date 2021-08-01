@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/asistencias" class="nav-link {{ Request::is('asistencias') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-calendar"></i>
                         <p>Asistencia</p>
                     </a>
@@ -100,15 +100,15 @@
                         <p>Nómina</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-th"></i>
+                <li class="nav-item">
+                    <a href="/marcar-asistencia" target="_blank" class="nav-link">
+                        <i class="nav-icon fa fa-check-square"></i>
                         <p>
-                            Cargos
-                            <span class="right badge badge-danger">New</span>
+                            Asistencia web
+                            <span class="right badge"><i class="fa fa-external-link" aria-hidden="true"></i></span>
                         </p>
                     </a>
-                </li> --}}
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

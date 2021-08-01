@@ -65,5 +65,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('horarios/editar/{id}', 'HorariosController@edit');
         Route::put('horarios/{id}', 'HorariosController@update')->name('editar-horario');
         Route::delete('horarios/{id}', 'HorariosController@destroy')->name('eliminar-horario');
+
+        // route asistencias
+        Route::get('asistencias', 'AsistenciasController@index');
     });
 });
+
+Route::get('marcar-asistencia', 'MiAsistenciaController@index');
+Route::post('marcar', 'MiAsistenciaController@mainMarcar')->name('marcar');

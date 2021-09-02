@@ -134,10 +134,12 @@
                                             <option value="">- Seleccionar -</option>
                                             @foreach ($horarios as $hr)
                                             <option value="{{ $hr->id }}" {{ (old('horario_id')==$hr->id)?'selected':'' }}>
-                                                Turno: {{ $hr->hora_inicio }} -
-                                                {{ $hr->hora_fin }}
-                                                Descansos: {{ $hr->hora_descanso }} -
-                                                {{ $hr->hora_fin_descanso }}
+                                                @php
+                                                    echo 'Turno: ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
+                                                    if ($hr->hora_descanso && $hr->hora_fin_descanso) {
+                                                        echo ' Descansos: ' .$hr->hora_descanso. ' - ' .$hr->hora_fin_descanso;
+                                                    }
+                                                @endphp
                                             </option>
                                             @endforeach
                                         </select>

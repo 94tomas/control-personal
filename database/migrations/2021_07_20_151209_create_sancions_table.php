@@ -19,7 +19,7 @@ class CreateSancionsTable extends Migration
             $table->double('descuento', 20, 2);
             $table->string('descripcion', 255);
             $table->foreignId('empleado_id');
-            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('set null');
             $table->timestamps();
         });
     }

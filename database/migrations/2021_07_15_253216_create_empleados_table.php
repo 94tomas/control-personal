@@ -26,8 +26,8 @@ class CreateEmpleadosTable extends Migration
             $table->boolean('estado')->default(true);
             $table->foreignId('cargo_id');
             $table->foreignId('horario_id');
-            $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('cascade');
-            $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('cascade');
+            $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('set null');
+            $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('set null');
             $table->timestamps();
         });
     }

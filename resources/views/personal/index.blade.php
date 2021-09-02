@@ -26,6 +26,10 @@
     <div class="content">
         <div class="container-fluid">
 
+            {{-- mensaje al usuario --}}
+            @include('layouts.partials.alertas')
+            {{-- fin mensaje al usuario --}}
+
             <div class="card card-secondary">
                 <div class="card-header">
                     <a href="/personal/nuevo" class="btn btn-primary">Nuevo</a>
@@ -76,12 +80,6 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <!-- Dropdown menu links -->
-                                            {{-- <a class="dropdown-item" href="#">Asistencia</a> --}}
-                                            <a class="dropdown-item" href="#">Permisos</a>
-                                            <a class="dropdown-item" href="#">Justificaciones</a>
-                                            <a class="dropdown-item" href="#">Sanciones</a>
-                                            <a class="dropdown-item" href="#">Vacaciones</a>
-                                            <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/personal/editar/{{ $item->id }}">Editar</a>
                                             <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#removeModal" data-id="{{ $item->id }}">Eliminar</a>
                                         </div>
@@ -150,12 +148,11 @@
 <!-- Modal -->
 <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="alert alert-danger" style="display:none"></div>
         <div class="modal-content">
             <div class="modal-body">
                 <div class="card-body pb-1">
                     <h5 class="modal-title">¿Desea continuar?</h5>
-                    El empleado se eliminará permanentente del sistema
+                    El empleado se eliminará permanentente del sistema junto con sus datos vinculados a este.
                 </div>
             </div>
             <form action="" method="post">

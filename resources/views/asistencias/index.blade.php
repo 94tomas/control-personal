@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h2 class="m-0">Lista de empleados</h2>
+                    <h2 class="m-0">Asistencia</h2>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Lista de empleados</li>
+                        <li class="breadcrumb-item active">Asistencia</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,7 +28,47 @@
 
             <div class="card card-secondary">
                 <div class="card-header">
-                    <a href="/personal/nuevo" class="btn btn-primary">Nuevo</a>
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <div class="form-group input-group-sm mb-0">
+                                <label for="s_personal">Seleccionar personal</label>
+                                <select class="form-control" id="s_personal">
+                                    <option value="">- Seleccionar -</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3 col-md-2">
+                            <div class="form-group input-group-sm mb-0">
+                                <label for="f_inicio">F. Inicio</label>
+                                <input type="date" class="form-control" id="f_inicio">
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3 col-md-2">
+                            <div class="form-group input-group-sm mb-0">
+                                <label for="f_final">F. Final</label>
+                                <input type="date" class="form-control" id="f_final">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 d-flex align-items-end">
+                            <div style="width:100%" class="d-flex">
+                                <button type="submit" class="btn btn-primary">Buscar</button>
+                                <div class="ml-auto">
+                                    <button type="submit" class="btn bg-red">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="submit" class="btn bg-green">
+                                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <a href="/personal/nuevo" class="btn btn-primary">Nuevo</a>
                     <div class="card-tools mr-0">
                         <div class="input-group input-group-sm mt-1" style="width: 250px;">
                           <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -39,7 +79,7 @@
                             </button>
                           </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -48,52 +88,34 @@
                             <tr>
                                 <th>Código</th>
                                 <th>Empleado</th>
-                                <th>Cargo</th>
-                                <th>Horario</th>
-                                <th>Estado</th>
+                                <th>Fecha registro</th>
+                                <th>Hr. entrada</th>
+                                <th>Hr. salida</th>
                                 <th style="width: 50px" class="text-right">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($lista as $item)
-                            <tr>
-                                <td>{{ $item->cod_empleado }}</td>
-                                <td>{{ $item->nombres }} {{ $item->apellidos }}</td>
-                                <td>{{ $item->cargo->nombre_cargo }}</td>
-                                <td>{{ $item->horario->hora_inicio }} - {{ $item->horario->hora_fin }}</td>
-                                <td>
-                                    @if ($item->estado)
-                                    <span class="badge bg-success">Activo</span>
-                                    @else
-                                    <span class="badge bg-danger">Inactivo</span>
-                                    @endif
-                                </td>
-                                <td class="text-right">
-                                    <!-- Default dropleft button -->
-                                    <div class="btn-group dropleft">
-                                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Acciones
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <!-- Dropdown menu links -->
-                                            {{-- <a class="dropdown-item" href="#">Asistencia</a> --}}
-                                            <a class="dropdown-item" href="#">Permisos</a>
-                                            <a class="dropdown-item" href="#">Justificaciones</a>
-                                            <a class="dropdown-item" href="#">Sanciones</a>
-                                            <a class="dropdown-item" href="#">Vacaciones</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/personal/editar/{{ $item->id }}">Editar</a>
-                                            <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#removeModal" data-id="{{ $item->id }}">Eliminar</a>
-                                        </div>
-                                    </div>
-                                    {{-- <a href="/personal/editar/{{ $item->id }}" class="btn btn-primary btn-xs" style="width:25px;">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-xs" style="width:25px;" data-toggle="modal" data-target="#removeModal" data-id="{{ $item->id }}">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a> --}}
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        {!! $item->empleado->cod_empleado !!}
+                                    </td>
+                                    <td>
+                                        {!! $item->empleado->apellidos.' '.$item->empleado->nombres !!}
+                                    </td>
+                                    <td>
+                                        {!! $item->fecha !!}
+                                    </td>
+                                    <td>
+                                        {!! $item->registros !!}
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

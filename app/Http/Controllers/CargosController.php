@@ -52,7 +52,7 @@ class CargosController extends Controller
         $cargo->tarifa = $request->tarifa;
         $cargo->save();
 
-        return redirect('/cargos/lista');
+        return redirect('/cargos/lista')->with('ok', 'Registro éxitoso.');
     }
 
     /**
@@ -102,7 +102,7 @@ class CargosController extends Controller
         $cargo->estado = ($request->estado)?1:0;
         $cargo->save();
 
-        return redirect('/cargos/lista');
+        return redirect('/cargos/lista')->with('ok', 'Actualización exitosa.');
     }
 
     /**
@@ -115,6 +115,6 @@ class CargosController extends Controller
     {
         $del = Cargo::find($id);
         $del->delete();
-        return back();
+        return back()->with('ok', 'Se eliminó el cargo correctamente.');
     }
 }

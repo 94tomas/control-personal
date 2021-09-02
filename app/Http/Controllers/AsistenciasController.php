@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Asistencia;
+use \Carbon\Carbon;
 
 class AsistenciasController extends Controller
 {
@@ -15,9 +16,28 @@ class AsistenciasController extends Controller
     public function index()
     {
         $lista = Asistencia::orderBy('created_at', 'DESC')
+            // ->get();
             ->paginate(10);
 
-        return view('asistencias.index')->with('lista', $lista);
+        // dd($lista);
+        foreach ($lista as $item) {
+            // formato de fecha
+            $meses = array("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic");
+            $fecha = Carbon::parse(date($item->fecha));
+            $mes = $meses[($fecha->format('n')) - 1];
+            $item->fecha = $fecha->format('d') .'-'. $mes .'-'. $fecha->format('Y');
+            // end formato fecha
+
+            // Hora de entrada
+            $hrEntrada = $item->empleado->horario->hora_inicio;
+            $hrSalida = $item->empleado->horario->hora_fin;
+            // dd($item->hora);
+            // end Hora de entrada
+        }
+
+        return view('asistencias.index')->with([
+            'lista' => $lista
+        ]);
     }
 
     /**

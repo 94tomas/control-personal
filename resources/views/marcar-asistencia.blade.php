@@ -5,6 +5,9 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-sm-6 col-md-4 offset-md-4 offset-sm-3">
+            {{-- mensaje al usuario --}}
+            @include('layouts.partials.alertas')
+            {{-- fin mensaje al usuario --}}
             <div class="card card-secondary">
                 <div class="card-header text-center">
                     <h4 class="mb-0" id="hora">

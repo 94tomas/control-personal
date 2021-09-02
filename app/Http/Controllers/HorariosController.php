@@ -49,7 +49,7 @@ class HorariosController extends Controller
         $nuevo->hora_fin_descanso = $request->hora_fin_descanso;
         $nuevo->save();
 
-        return redirect('/horarios/lista');
+        return redirect('/horarios/lista')->with('ok', 'Registro éxitoso.');
     }
 
     /**
@@ -97,7 +97,7 @@ class HorariosController extends Controller
         $editar->estado = ($request->estado)?1:0;
         $editar->save();
 
-        return redirect('/horarios/lista');
+        return redirect('/horarios/lista')->with('ok', 'Actualización exitosa.');
     }
 
     /**
@@ -110,6 +110,6 @@ class HorariosController extends Controller
     {
         $del = Horario::find($id);
         $del->delete();
-        return back();
+        return back()->with('Se eliminó rl horario correctamente.');
     }
 }

@@ -22,7 +22,7 @@ class CreatePermisosTable extends Migration
             $table->date('fecha_fin');
             $table->string('descripcion', 255);
             $table->foreignId('empleado_id');
-            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -26,6 +26,10 @@
     <div class="content">
         <div class="container-fluid">
 
+            {{-- mensaje al usuario --}}
+            @include('layouts.partials.alertas')
+            {{-- fin mensaje al usuario --}}
+            
             <div class="card card-secondary">
                 <div class="card-header">
                     <a href="/horarios/nuevo" class="btn btn-primary">Nuevo</a>
@@ -139,7 +143,6 @@
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="alert alert-danger" style="display:none"></div>
         <div class="modal-content">
             <div class="modal-body">
                 <div class="card-body pb-1">

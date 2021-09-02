@@ -74,7 +74,7 @@ class EmpleadoController extends Controller
         $empleado->cod_empleado = 'PE' . $strCode . $empleado->id;
         $empleado->save();
 
-        return redirect('/personal/lista');
+        return redirect('/personal/lista')->with('ok', 'Registro éxitoso.');
     }
 
     /**
@@ -140,7 +140,7 @@ class EmpleadoController extends Controller
         $empleado->estado = ($request->estado)?1:0;
         $empleado->save();
 
-        return redirect('/personal/lista');
+        return redirect('/personal/lista')->with('ok', 'Actualización exitosa.');
     }
 
     /**
@@ -153,6 +153,6 @@ class EmpleadoController extends Controller
     {
         $del = Empleado::find($id);
         $del->delete();
-        return back();
+        return back()->with('ok', 'Se eliminó al usuario correctamente.');
     }
 }

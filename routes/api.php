@@ -18,4 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('empleado/nuevo', 'Api\EmployeeController@createEmployee');
+Route::get('horarios-cargos', 'Api\EmpleadoController@showData');
+Route::post('registro-empleado', 'Api\EmpleadoController@registerEmpl');
+Route::get('lista-empleados', 'Api\EmpleadoController@listEmpleados');
+Route::post('asistencia-empleado', 'Api\EmpleadoController@Asistencia');

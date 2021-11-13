@@ -23,9 +23,59 @@ class MiAsistenciaController extends Controller
             return back();
         }
 
-        $emp = Empleado::select('id', 'cod_empleado')
+        $emp = Empleado::select('id', 'cod_empleado', 'horario_id')
+            ->with('horario')
             ->where('cod_empleado', $request->cod_empleado)
             ->first();
+        
+        // // tolerancias
+        // $toleranciaEntrada = $emp->horario->tolerancia_inicio;
+        // $toleranciaSalida = $emp->horario->tolerancia_fin;
+        
+        // // hora actual
+        // $horaActual = (date('Y-m-d H:i:s'))?Carbon::parse(date('Y-m-d H:i:s'))->format('Y-m-d H:i:s'):'';
+
+        // // diferencia en minutos
+        // $tiempos = [
+        //     'entrada' => 0,
+        //     'salida' => 0,
+        //     'descanso' => 0,
+        //     'fin_descanso' => 0
+        // ];
+        // $tiempos['entrada'] = $this->diffTiempos(Carbon::parse($emp->horario->hora_inicio)->format('Y-m-d H:i:s'), $horaActual);
+        // $tiempos['salida'] = $this->diffTiempos(Carbon::parse($emp->horario->hora_fin)->format('Y-m-d H:i:s'), $horaActual);
+        // $tiempos['descanso'] = ($emp->horario->hora_descanso)?$this->diffTiempos(Carbon::parse($emp->horario->hora_descanso)->format('Y-m-d H:i:s'), $horaActual):9999999999;
+        // $tiempos['fin_descanso'] = ($emp->horario->hora_fin_descanso)?$this->diffTiempos(Carbon::parse($emp->horario->hora_fin_descanso)->format('Y-m-d H:i:s'), $horaActual):9999999999;
+        
+        // // buscar que horario esta registrando
+        // $reg = 'entrada';
+        // $diff = $tiempos['entrada'];
+        // foreach ($tiempos as $key => $value) {
+        //     if ($value<$diff) {
+        //         $reg = $key;
+        //     }
+        // }
+        // switch ($reg) {
+        //     case 'entrada':
+                
+        //         break;
+        //     case 'salida':
+                
+        //         break;
+        //     case 'descanso':
+                
+        //         break;
+        //     case 'fin_descanso':
+                
+        //         break;
+        //     default:
+        //         break;
+        // }
+        // dd($reg);
+        // dd($tiempos);
+
+        // // hora de registro
+        // $tmpHora = Carbon::create($request->hora);
 
         // Hora del usuario
         $tmpHora = Carbon::create($request->hora);
@@ -53,6 +103,18 @@ class MiAsistenciaController extends Controller
         } else {
             return back()->with('info', 'Ya realizo un registro en los ultimos 10 minutos.');
         }
+    }
+    /**
+     * 
+     * Diferencia en minutos
+     * 
+     */
+    public function diffTiempos($tmpTime, $currentTime)
+    {   
+        $tmpTime = Carbon::create($tmpTime);
+        $currentTime = Carbon::create($currentTime);
+        // $signo = ($currentTime >= $tmpTime)?-1:1;
+        return $currentTime->DiffInMinutes($tmpTime);
     }
 
     /**

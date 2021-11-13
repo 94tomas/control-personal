@@ -87,6 +87,28 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
+                                            <label for="tolerancia_inicio">Tolerancia en la entrada (en minutos)</label>
+                                            <input type="number" min="0" max="60" step="1" class="form-control {{ ($errors->has('tolerancia_inicio')) ? 'is-invalid' : '' }}" name="tolerancia_inicio" id="tolerancia_inicio" value="{{ $horario->tolerancia_inicio }}">
+                                            @if($errors->has('tolerancia_inicio'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    {{ $errors->first('tolerancia_inicio') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="tolerancia_fin">Tolerancia en la salida (en minutos)</label>
+                                            <input type="number" min="0" max="60" step="1" class="form-control {{ ($errors->has('tolerancia_fin')) ? 'is-invalid' : '' }}" name="tolerancia_fin" id="tolerancia_fin" value="{{ $horario->tolerancia_fin }}">
+                                            @if($errors->has('tolerancia_fin'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    {{ $errors->first('tolerancia_fin') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
                                             <div class="custom-control custom-switch">
                                                 @php
                                                     $ifCheck = ($horario->estado==1)?'checked="checked"':''

@@ -68,6 +68,8 @@ Route::middleware(['auth'])->group(function () {
 
         // route asistencias
         Route::get('asistencias', 'AsistenciasController@index');
+        // report
+        Route::get('/asistencias-pdf', 'AsistenciasController@reportPdf');
     });
 });
 

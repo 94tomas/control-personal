@@ -28,58 +28,46 @@
 
             <div class="card card-secondary">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-4">
-                            <div class="form-group input-group-sm mb-0">
-                                <label for="s_personal">Seleccionar personal</label>
-                                <select class="form-control" id="s_personal">
-                                    <option value="">- Seleccionar -</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <div class="form-group input-group-sm mb-0">
+                                    <label for="personal">Seleccionar personal</label>
+                                    <select class="form-control" id="personal" name="personal">
+                                        <option value="">- Todos -</option>
+                                        @foreach ($empleados as $item)
+                                        <option value="{!! $item->id !!}" {{ (Request::get('personal')==$item->id)?'selected':'' }}>{!! $item->cod_empleado !!} - {!! $item->nombres.' '.$item->apellidos !!}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-sm-3 col-md-2">
-                            <div class="form-group input-group-sm mb-0">
-                                <label for="f_inicio">F. Inicio</label>
-                                <input type="date" class="form-control" id="f_inicio">
+                            <div class="col-6 col-sm-3 col-md-2">
+                                <div class="form-group input-group-sm mb-0">
+                                    <label for="fecha_init">F. Inicio</label>
+                                    <input type="date" class="form-control" id="fecha_init" name="fecha_init" value="{{ Request::get('fecha_init') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-sm-3 col-md-2">
-                            <div class="form-group input-group-sm mb-0">
-                                <label for="f_final">F. Final</label>
-                                <input type="date" class="form-control" id="f_final">
+                            <div class="col-6 col-sm-3 col-md-2">
+                                <div class="form-group input-group-sm mb-0">
+                                    <label for="fecha_end">F. Final</label>
+                                    <input type="date" class="form-control" id="fecha_end" name="fecha_end" value="{{ Request::get('fecha_end') }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-4 d-flex align-items-end">
-                            <div style="width:100%" class="d-flex">
-                                <button type="submit" class="btn btn-primary">Buscar</button>
-                                <div class="ml-auto">
-                                    <button type="submit" class="btn bg-red">
-                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="submit" class="btn bg-green">
-                                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                                    </button>
+                            <div class="col-12 col-sm-12 col-md-4 d-flex align-items-end">
+                                <div style="width:100%" class="d-flex">
+                                    <button type="submit" class="btn btn-primary">Buscar</button>
+                                    <div class="ml-auto">
+                                        <a href="javascript:;" id="report_pdf" class="btn bg-red">
+                                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="javascript:;" id="report_excel" class="btn bg-green">
+                                            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {{-- <a href="/personal/nuevo" class="btn btn-primary">Nuevo</a>
-                    <div class="card-tools mr-0">
-                        <div class="input-group input-group-sm mt-1" style="width: 250px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fa fa-search"></i>
-                            </button>
-                          </div>
-                        </div>
-                    </div> --}}
+                    </form>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -88,10 +76,9 @@
                             <tr>
                                 <th>Código</th>
                                 <th>Empleado</th>
-                                <th>Fecha registro</th>
-                                <th>Hr. entrada</th>
-                                <th>Hr. salida</th>
-                                <th style="width: 50px" class="text-right">Acción</th>
+                                <th>Fecha y hora registro</th>
+                                <th>Horario</th>
+                                <th style="width: 50px" class="text-right">Tolerancia</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,16 +91,28 @@
                                         {!! $item->empleado->apellidos.' '.$item->empleado->nombres !!}
                                     </td>
                                     <td>
-                                        {!! $item->fecha !!}
+                                        {!! $item->fecha !!} - {!! $item->hora !!}
                                     </td>
                                     <td>
-                                        {!! $item->registros !!}
+                                        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" data-html="true" 
+                                            title="
+                                            <ul class='mb-0 pl-3 text-left'>
+                                                <li>Entrada: {!! $item->empleado->horario->hora_inicio !!}</li>
+                                                @if ($item->empleado->horario->hora_descanso)
+                                                <li>Descanso: {!! $item->empleado->horario->hora_descanso !!}</li>
+                                                @endif
+                                                @if ($item->empleado->horario->hora_fin_descanso)
+                                                <li>Fin descanso: {!! $item->empleado->horario->hora_fin_descanso !!}</li>
+                                                @endif
+                                                <li>Salida: {!! $item->empleado->horario->hora_fin !!}</li>
+                                            </ul>
+                                            "
+                                        >
+                                            Horarios
+                                        </button>
                                     </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
+                                    <td class="text-right">
+                                        {!! $item->empleado->horario->tolerancia !!} min.
                                     </td>
                                 </tr>
                             @endforeach
@@ -169,40 +168,44 @@
 
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="alert alert-danger" style="display:none"></div>
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="card-body pb-1">
-                    <h5 class="modal-title">¿Desea continuar?</h5>
-                    El empleado se eliminará permanentente del sistema
-                </div>
-            </div>
-            <form action="" method="post">
-                @csrf
-                <input name="_method" type="hidden" value="DELETE">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Si, eliminar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 @endsection
 
 @section('scripts')
 <script>
-    $(document).ready(function(){
-        $('#removeModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('id') // Extract info from data-* attributes
-            var modal = $(this)
-            modal.find('.modal-content form').attr('action', `${window.location.protocol}//${window.location.hostname}/personal/${recipient}`)
-        })
+    $(function () {
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) 
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) 
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+        $('#report_pdf').on('click', function() {
+            var Url = window.location.href;
+            var personal = GetURLParameter('personal');
+            var fecha_init = GetURLParameter('fecha_init');
+            var fecha_end = GetURLParameter('fecha_end');
+            window.open(
+                `/asistencias-pdf?personal=${personal}&fecha_init=${fecha_init}&fecha_end=${fecha_end}`,
+                '_blank' // <- This is what makes it open in a new window.
+            );
+        });
+        $('#report_excel').on('click', function() {
+            var Url = window.location.href;
+            var personal = GetURLParameter('personal');
+            var fecha_init = GetURLParameter('fecha_init');
+            var fecha_end = GetURLParameter('fecha_end');
+            window.open(
+                `/asistencias-excel?personal=${personal}&fecha_init=${fecha_init}&fecha_end=${fecha_end}`,
+                '_blank' // <- This is what makes it open in a new window.
+            );
+        });
     });
 </script>
 @endsection

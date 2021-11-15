@@ -40,8 +40,7 @@ class HorariosController extends Controller
         $request->validate([
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
-            'tolerancia_inicio' => 'required',
-            'tolerancia_fin' => 'required',
+            'tolerancia' => 'required'
         ]);
 
         $nuevo = new Horario;
@@ -49,8 +48,7 @@ class HorariosController extends Controller
         $nuevo->hora_descanso = $request->hora_descanso;
         $nuevo->hora_fin = $request->hora_fin;
         $nuevo->hora_fin_descanso = $request->hora_fin_descanso;
-        $nuevo->tolerancia_inicio = $request->tolerancia_inicio;
-        $nuevo->tolerancia_fin = $request->tolerancia_fin;
+        $nuevo->tolerancia = $request->tolerancia;
         $nuevo->save();
 
         return redirect('/horarios/lista')->with('ok', 'Registro éxitoso.');
@@ -91,8 +89,7 @@ class HorariosController extends Controller
         $request->validate([
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
-            'tolerancia_inicio' => 'required',
-            'tolerancia_fin' => 'required',
+            'tolerancia' => 'required'
         ]);
 
         $editar = Horario::find($id);
@@ -101,8 +98,7 @@ class HorariosController extends Controller
         $editar->hora_fin = $request->hora_fin;
         $editar->hora_fin_descanso = $request->hora_fin_descanso;
         $editar->estado = ($request->estado)?1:0;
-        $editar->tolerancia_inicio = $request->tolerancia_inicio;
-        $editar->tolerancia_fin = $request->tolerancia_fin;
+        $editar->tolerancia = $request->tolerancia;
         $editar->save();
 
         return redirect('/horarios/lista')->with('ok', 'Actualización exitosa.');

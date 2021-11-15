@@ -4,4 +4,6 @@ jQuery(document).ready(function(){
         $(".alert").slideUp(500);
     });
 
+    $('[data-toggle="tooltip"]').tooltip()
+    
 });

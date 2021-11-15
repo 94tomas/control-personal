@@ -50001,6 +50001,7 @@ jQuery(document).ready(function () {
   $(".alert").fadeTo(5000, 500).slideUp(500, function () {
     $(".alert").slideUp(500);
   });
+  $('[data-toggle="tooltip"]').tooltip();
 });
 
 /***/ }),
@@ -50023,8 +50024,8 @@ jQuery(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/edson/Projects/personal-control/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/edson/Projects/personal-control/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/edson/Projects/control-personal/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/edson/Projects/control-personal/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

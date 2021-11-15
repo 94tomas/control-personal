@@ -20,8 +20,7 @@ class CreateHorariosTable extends Migration
             $table->time('hora_descanso')->nullable();
             $table->time('hora_fin_descanso')->nullable();
             $table->time('hora_fin');
-            $table->integer('tolerancia_inicio');
-            $table->integer('tolerancia_fin');
+            $table->integer('tolerancia');
             $table->boolean('estado')->default(true);
             $table->timestamps();
         });

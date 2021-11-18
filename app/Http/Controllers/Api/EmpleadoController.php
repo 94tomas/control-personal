@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cargo;
 use App\Models\Horario;
 use App\Models\Empleado;
+use App\Models\Asistencia;
 use Carbon\Carbon;
 use Validator;
 
@@ -40,13 +41,17 @@ class EmpleadoController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);
         }
-        
+        $tmpDate = explode('/', strval($request->fecha_nacimiento));
+        $tmpDate2 = $tmpDate[0].'/'.$tmpDate[1].'/'.$tmpDate[2];
+        $time = strtotime($tmpDate2);
+        $newformat = date('Y-m-d',$time);
+
         $empleado = new Empleado;
         $empleado->nombres = $request->nombres;
         $empleado->apellidos = $request->apellidos;
         $empleado->direccion = $request->direccion;
         $empleado->tel_cel = $request->tel_cel;
-        $empleado->fecha_nacimiento = Carbon::create($request->fecha_nacimiento)->format('Y-m-d');
+        $empleado->fecha_nacimiento = $newformat;
         $empleado->genero = $request->genero;
         $empleado->cargo_id = $request->cargo_id;
         $empleado->horario_id = $request->horario_id;
@@ -75,12 +80,46 @@ class EmpleadoController extends Controller
     public function Asistencia(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'code' => 'required',
+            'cod_empleado' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 400);
         }
 
-        return response()->json('listo', 200);
+        if (!Empleado::where('cod_empleado', $request->cod_empleado)->exists()) {
+            return back();
+        }
+
+        $emp = Empleado::select('id', 'cod_empleado', 'horario_id')
+            ->with('horario')
+            ->where('cod_empleado', $request->cod_empleado)
+            ->first();
+
+        // Hora del usuario
+        $tmpHora = Carbon::create($request->hora);
+        $fechaHoy = (date('Y-m-d'))?Carbon::parse(date('Y-m-d'))->format('Y-m-d H:i:s'):'';
+        $ultimoReg = Asistencia::select('id', 'hora')
+            ->where('empleado_id', $emp->id)
+            ->where(function($x) use($fechaHoy) {
+                if ($fechaHoy!=='') {
+                    $x->where('fecha', '>=', $fechaHoy);
+                    $x->where('fecha', '<=', $fechaHoy);
+                }
+            })
+            ->orderBy('created_at', 'DESC')
+            ->first();
+
+        $horaReg = ($ultimoReg) ? Carbon::create($ultimoReg->hora) : '';
+        $diferencia = ($horaReg!='') ? $horaReg->DiffInMinutes($tmpHora) : 100;
+        if ($diferencia > 10) {
+            $nuevo = new Asistencia;
+            $nuevo->hora = $request->hora;
+            $nuevo->fecha = $fechaHoy;
+            $nuevo->empleado_id = $emp->id;
+            $nuevo->save();
+            return response()->json('ok', 200);
+        } else {
+            return response()->json('info', 422);
+        }
     }
 }

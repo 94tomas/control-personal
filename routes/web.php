@@ -70,6 +70,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('asistencias', 'AsistenciasController@index');
         // report
         Route::get('/asistencias-pdf', 'AsistenciasController@reportPdf');
+
+        // route nomina
+        Route::get('/nomina', 'NominaController@index');
     });
 });
 

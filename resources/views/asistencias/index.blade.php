@@ -60,9 +60,9 @@
                                         <a href="javascript:;" id="report_pdf" class="btn bg-red">
                                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                         </a>
-                                        <a href="javascript:;" id="report_excel" class="btn bg-green">
+                                        {{-- <a href="javascript:;" id="report_excel" class="btn bg-green">
                                             <i class="fa fa-file-excel-o" aria-hidden="true"></i>
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
                             </div>

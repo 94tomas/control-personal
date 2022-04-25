@@ -47,36 +47,13 @@
                         <p>Asistencia</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item {{ (Request::is('personal/*') || Request::is('horarios/*')) ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ (Request::is('personal/*') || Request::is('horarios/*')) ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-users"></i>
-                        <p>
-                            Empleados
-                            <i class="right fa fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/personal/lista" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
-                                <i class="fa fa-angle-right nav-icon"></i>
-                                <p>Lista de empleados</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/horarios/lista" class="nav-link {{ Request::is('horarios/*') ? 'active' : '' }}">
-                                <i class="fa fa-angle-right nav-icon"></i>
-                                <p>Horarios</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
                 <li class="nav-item">
                     <a href="/personal/lista" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
                         <p>Personal</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="/horarios/lista" class="nav-link {{ Request::is('horarios/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-clock-o"></i>
                         <p>Horarios</p>
@@ -87,12 +64,6 @@
                         <i class="nav-icon fa fa-briefcase"></i>
                         <p>Cargos</p>
                     </a>
-                </li>
-                {{-- <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-file-text-o"></i>
-                        <p>Deducciones</p>
-                    </a>
                 </li> --}}
                 <li class="nav-item">
                     <a href="/nomina" class="nav-link {{ Request::is('nomina') ? 'active' : '' }}">
@@ -100,7 +71,7 @@
                         <p>Nómina</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="/marcar-asistencia" target="_blank" class="nav-link">
                         <i class="nav-icon fa fa-check-square"></i>
                         <p>
@@ -108,7 +79,7 @@
                             <span class="right badge"><i class="fa fa-external-link" aria-hidden="true"></i></span>
                         </p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -31,7 +31,7 @@
         @include('layouts.navbar')
 
         <!-- Main Sidebar Container -->
-        @if (Auth::user()->authorizeRoles(['super']))
+        @if (Auth::user()->authorizeRoles(['superadmin']))
         @include('layouts.sidebar-super')
         @else
         @include('layouts.sidebar-admin')

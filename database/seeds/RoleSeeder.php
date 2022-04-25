@@ -18,8 +18,8 @@ class RoleSeeder extends Seeder
         $role->save();
 
         $role = new Role();
-        $role->name = 'super';
-        $role->description = 'Super Administrador';
+        $role->name = 'superadmin';
+        $role->description = 'Super administrador';
         $role->save();
     }
 }

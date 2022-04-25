@@ -45,19 +45,16 @@ class AsistenciasController extends Controller
             $fecha = Carbon::parse(date($item->fecha));
             $mes = $meses[($fecha->format('n')) - 1];
             $item->fecha = $fecha->format('d') .'-'. $mes .'-'. $fecha->format('Y');
+
+            $now = Carbon::parse($item->hora);
+            $item->tmpHora = $now->format('g:i:s A');
+
+            $now2 = Carbon::parse($item->horario);
+            $item->tmpHorario = $now2->format('g:i:s A');
             // end formato fecha
 
-            // Hora de entrada
-            // $hrEntrada = $item->empleado->horario->hora_inicio;
-            // $hrSalida = $item->empleado->horario->hora_fin;
-
-            // $descansoIni = $item->empleado->horario->hora_descanso;
-            // $descansoFin = $item->empleado->horario->hora_fin_descanso;
-
-            // $toleranciaIni = $item->empleado->horario->tolerancia_inicio;
-            // $toleranciaFin = $item->empleado->horario->tolerancia_fin;
-            // dd($item->empleado->horario);
-            // end Hora de entrada
+            // diferencia
+            $item->diferencia = $this->diffTiempos($item->horario, $item->hora);
         }
 
         $empleados = Empleado::orderBy('created_at', 'DESC')->get();
@@ -67,6 +64,27 @@ class AsistenciasController extends Controller
             'lista' => $lista,
             'empleados' => $empleados
         ]);
+    }
+
+    /**
+     * 
+     * Diferencia en minutos
+     * 
+     */
+    public function diffTiempos($tmpTime, $currentTime)
+    {   
+        $tmpTime = Carbon::create($tmpTime);
+        $currentTime = Carbon::create($currentTime);
+        // $signo = ($currentTime >= $tmpTime)?-1:1;
+        return $currentTime->DiffInMinutes($tmpTime);
+    }
+    function convertToHoursMins($time, $format = '%02d:%02d') {
+        if ($time < 1) {
+            return;
+        }
+        $hours = floor($time / 60);
+        $minutes = ($time % 60);
+        return sprintf($format, $hours, $minutes);
     }
 
     public function reportPdf(Request $request)

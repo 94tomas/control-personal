@@ -57,9 +57,9 @@
                                 <div style="width:100%" class="d-flex">
                                     <button type="submit" class="btn btn-primary">Buscar</button>
                                     <div class="ml-auto">
-                                        <a href="javascript:;" id="report_pdf" class="btn bg-red">
+                                        {{-- <a href="javascript:;" id="report_pdf" class="btn bg-red">
                                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                        </a>
+                                        </a> --}}
                                         {{-- <a href="javascript:;" id="report_excel" class="btn bg-green">
                                             <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                                         </a> --}}
@@ -76,9 +76,10 @@
                             <tr>
                                 <th>Código</th>
                                 <th>Empleado</th>
-                                <th>Fecha y hora registro</th>
-                                <th>Horario</th>
-                                <th style="width: 50px" class="text-right">Tolerancia</th>
+                                <th>Horario del empleado</th>
+                                <th>Hora de registro</th>
+                                <th>Fecha de registro</th>
+                                {{-- <th class="text-right">Estado</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -91,29 +92,17 @@
                                         {!! $item->empleado->apellidos.' '.$item->empleado->nombres !!}
                                     </td>
                                     <td>
-                                        {!! $item->fecha !!} - {!! $item->hora !!}
+                                        {!! $item->tmpHorario !!}
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" data-html="true" 
-                                            title="
-                                            <ul class='mb-0 pl-3 text-left'>
-                                                <li>Entrada: {!! $item->empleado->horario->hora_inicio !!}</li>
-                                                @if ($item->empleado->horario->hora_descanso)
-                                                <li>Descanso: {!! $item->empleado->horario->hora_descanso !!}</li>
-                                                @endif
-                                                @if ($item->empleado->horario->hora_fin_descanso)
-                                                <li>Fin descanso: {!! $item->empleado->horario->hora_fin_descanso !!}</li>
-                                                @endif
-                                                <li>Salida: {!! $item->empleado->horario->hora_fin !!}</li>
-                                            </ul>
-                                            "
-                                        >
-                                            Horarios
-                                        </button>
+                                        {!! $item->tmpHora !!}
                                     </td>
-                                    <td class="text-right">
-                                        {!! $item->empleado->horario->tolerancia !!} min.
+                                    <td>
+                                        {!! $item->fecha !!}
                                     </td>
+                                    {{-- <td class="text-right">
+                                        {!! $item->diferencia !!}
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

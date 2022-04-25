@@ -110,7 +110,7 @@ class EmpleadoController extends Controller
             ->first();
         $horaReg = ($ultimoReg) ? Carbon::create($ultimoReg->hora) : '';
         $diferencia = ($horaReg!='') ? $horaReg->DiffInMinutes($tmpHora) : 100;
-        if ($diferencia > 30) {
+        if ($diferencia > 5) {
             // return response()->json('ok', 200);
         } else {
             return response()->json('tmp', 403);

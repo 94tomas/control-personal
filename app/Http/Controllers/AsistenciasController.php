@@ -35,6 +35,7 @@ class AsistenciasController extends Controller
                     $q->where('id', $personal);
                 }
             })
+            ->with('empleado.horario')
             // ->get();
             ->paginate(10);
 
@@ -54,7 +55,14 @@ class AsistenciasController extends Controller
             // end formato fecha
 
             // diferencia
-            $item->diferencia = $this->diffTiempos($item->horario, $item->hora);
+            $item->diferencia = $this->convertToHoursMins(
+                $this->diffTiempos(
+                    $item->horario,
+                    $item->hora
+                ),
+                (Carbon::create($item->horario) > Carbon::create($item->hora))?0:$item->empleado->horario->tolerancia
+            );
+            $item->descriptionDiff = (Carbon::create($item->horario) > Carbon::create($item->hora))?'antes':'tarde';
         }
 
         $empleados = Empleado::orderBy('created_at', 'DESC')->get();
@@ -78,13 +86,14 @@ class AsistenciasController extends Controller
         // $signo = ($currentTime >= $tmpTime)?-1:1;
         return $currentTime->DiffInMinutes($tmpTime);
     }
-    function convertToHoursMins($time, $format = '%02d:%02d') {
+    function convertToHoursMins($time, $tolerancia = 10) {
         if ($time < 1) {
             return;
         }
         $hours = floor($time / 60);
-        $minutes = ($time % 60);
-        return sprintf($format, $hours, $minutes);
+        $minutes = ($time % 60) - $tolerancia;
+        return $hours.' hrs - '.$minutes.' mins';
+        // return sprintf($format, $hours, $minutes);
     }
 
     public function reportPdf(Request $request)
@@ -108,6 +117,7 @@ class AsistenciasController extends Controller
                     $q->where('id', $personal);
                 }
             })
+            ->with('empleado.horario')
             ->get();
 
         // dd($lista);
@@ -117,7 +127,23 @@ class AsistenciasController extends Controller
             $fecha = Carbon::parse(date($item->fecha));
             $mes = $meses[($fecha->format('n')) - 1];
             $item->fecha = $fecha->format('d') .'-'. $mes .'-'. $fecha->format('Y');
+
+            $now = Carbon::parse($item->hora);
+            $item->tmpHora = $now->format('g:i:s A');
+
+            $now2 = Carbon::parse($item->horario);
+            $item->tmpHorario = $now2->format('g:i:s A');
             // end formato fecha
+
+            // diferencia
+            $item->diferencia = $this->convertToHoursMins(
+                $this->diffTiempos(
+                    $item->horario,
+                    $item->hora
+                ),
+                (Carbon::create($item->horario) > Carbon::create($item->hora))?0:$item->empleado->horario->tolerancia
+            );
+            $item->descriptionDiff = (Carbon::create($item->horario) > Carbon::create($item->hora))?'antes':'tarde';
         }
     
         $pdf = \PDF::loadView('asistencias.report-pdf', [

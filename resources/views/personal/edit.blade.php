@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="fecha_nacimiento" class="col-sm-2 col-form-label">Cumpleaños</label>
+                                    <label for="fecha_nacimiento" class="col-sm-2 col-form-label">Fecha nacimiento</label>
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control {{ ($errors->has('fecha_nacimiento')) ? 'is-invalid' : '' }}" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="15/01/1990" value="{{ $empleado->fecha_nacimiento }}">
                                         @if($errors->has('fecha_nacimiento'))

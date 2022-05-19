@@ -78,39 +78,48 @@
         <table style="border: 1px solid black">
             <thead>
                 <tr>
-                    <th style="text-align:left;">CÓDIGO</th>
-                    <th style="text-align:center;">EMPLEADO</th>
-                    <th style="text-align:center;">FECHA Y HORA REGISTRO</th>
-                    <th style="text-align:center;">HORARIOS</th>
-                    <th style="text-align:right;">TOLERANCIA</th>
+                    <th style="text-align:left;">FECHA</th>
+                    <th style="text-align:center;">CÓDIGO</th>
+                    <th style="text-align:center;">PERSONAL</th>
+                    <th style="text-align:center;">HORARIO DEL PERSONAL</th>
+                    <th style="text-align:center;">HORA DE REGISTRO</th>
+                    <th style="text-align:center;">TOLERANCIA</th>
+                    <th style="text-align:right;">REGISTRO</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($lista as $item)
                     <tr>
                         <td style="border: 1px solid;">
+                            {!! $item->fecha !!}
+                        </td>
+                        <td style="text-align:center; border: 1px solid;">
                             {!! $item->empleado->cod_empleado !!}
                         </td>
                         <td style="text-align:center; border: 1px solid;">
                             {!! $item->empleado->apellidos.' '.$item->empleado->nombres !!}
                         </td>
                         <td style="text-align:center; border: 1px solid;">
-                            {!! $item->fecha !!} - {!! $item->hora !!}
+                            {!! $item->tmpHorario !!}
                         </td>
                         <td style="text-align:center; border: 1px solid;">
-                            <ul style="margin-bottom: 0px; margin-top: 0px; text-align: left;">
-                                <li>Entrada: {!! $item->empleado->horario->hora_inicio !!}</li>
-                                @if ($item->empleado->horario->hora_descanso)
-                                <li>Descanso: {!! $item->empleado->horario->hora_descanso !!}</li>
-                                @endif
-                                @if ($item->empleado->horario->hora_fin_descanso)
-                                <li>Fin descanso: {!! $item->empleado->horario->hora_fin_descanso !!}</li>
-                                @endif
-                                <li>Salida: {!! $item->empleado->horario->hora_fin !!}</li>
-                            </ul>
+                            {!! $item->tmpHora !!}
+                        </td>
+                        <td style="text-align:center; border: 1px solid;">
+                            {!! $item->empleado->horario->tolerancia !!} mins
                         </td>
                         <td style="text-align: right; border: 1px solid;">
-                            {!! $item->empleado->horario->tolerancia !!} min.
+                            {!! $item->diferencia !!}
+                            @switch($item->descriptionDiff)
+                                @case('tarde')
+                                    <span style="background-color:#6c757d; color:#fff; padding: 0.25em 0.4em;">Tarde</span>
+                                    @break
+                                @case('antes')
+                                    <span style="background-color:#28a745; color:#fff; padding: 0.25em 0.4em;">Antes</span>
+                                    @break
+                                @default
+                                    @break
+                            @endswitch
                         </td>
                     </tr>
                 @endforeach

@@ -57,9 +57,9 @@
                                 <div style="width:100%" class="d-flex">
                                     <button type="submit" class="btn btn-primary">Buscar</button>
                                     <div class="ml-auto">
-                                        {{-- <a href="javascript:;" id="report_pdf" class="btn bg-red">
+                                        <a href="javascript:;" id="report_pdf" class="btn bg-red">
                                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                        </a> --}}
+                                        </a>
                                         {{-- <a href="javascript:;" id="report_excel" class="btn bg-green">
                                             <i class="fa fa-file-excel-o" aria-hidden="true"></i>
                                         </a> --}}
@@ -74,17 +74,21 @@
                     <table class="table table-hover text-nowrap table-bordered">
                         <thead>
                             <tr>
+                                <th>Fecha</th>
                                 <th>Código</th>
-                                <th>Empleado</th>
-                                <th>Horario del empleado</th>
+                                <th>Personal</th>
+                                <th>Horario del personal</th>
                                 <th>Hora de registro</th>
-                                <th>Fecha de registro</th>
-                                {{-- <th class="text-right">Estado</th> --}}
+                                <th>Tolerancia</th>
+                                <th class="text-right">Registro</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($lista as $item)
                                 <tr>
+                                    <td>
+                                        {!! $item->fecha !!}
+                                    </td>
                                     <td>
                                         {!! $item->empleado->cod_empleado !!}
                                     </td>
@@ -98,11 +102,21 @@
                                         {!! $item->tmpHora !!}
                                     </td>
                                     <td>
-                                        {!! $item->fecha !!}
+                                        {!! $item->empleado->horario->tolerancia !!} mins
                                     </td>
-                                    {{-- <td class="text-right">
+                                    <td class="text-right">
                                         {!! $item->diferencia !!}
-                                    </td> --}}
+                                        @switch($item->descriptionDiff)
+                                            @case('tarde')
+                                                <span class="badge bg-gray">Tarde</span>
+                                                @break
+                                            @case('antes')
+                                                <span class="badge bg-success">Antes</span>
+                                                @break
+                                            @default
+                                                @break
+                                        @endswitch
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

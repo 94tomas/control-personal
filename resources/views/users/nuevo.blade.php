@@ -116,7 +116,7 @@
             
                                         <div class="col-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="birthday">{{ __('Fecha de cumpleaños *') }}</label>
+                                                <label for="birthday">{{ __('Fecha de nacimiento *') }}</label>
                                                 <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" max="1995-12-31" required>
                     
                                                 @error('birthday')

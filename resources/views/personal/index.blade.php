@@ -32,18 +32,29 @@
 
             <div class="card card-secondary">
                 <div class="card-header">
-                    <a href="/personal/nuevo" class="btn btn-primary">Nuevo</a>
-                    <div class="card-tools mr-0">
-                        <div class="input-group input-group-sm mt-1" style="width: 250px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fa fa-search"></i>
-                            </button>
-                          </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-12 col-md-2 pt-2">
+                                <a href="/personal/nuevo" class="btn btn-lg bg-primary d-block">Nuevo</a>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="form-group input-group-sm mb-0">
+                                    <label for="search">Buscar</label>
+                                    <input type="text" name="search" class="form-control" placeholder="Buscar empleado" value="{{ (Request::get('search'))??'' }}">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 d-flex align-items-end">
+                                <div style="width:100%" class="d-flex">
+                                    <button type="submit" class="btn btn-primary">Buscar</button>
+                                    <div class="ml-auto">
+                                        <a href="JAVASCRIPT:;" id="report_pdf" class="btn bg-red">
+                                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
@@ -178,6 +189,29 @@
             var modal = $(this)
             modal.find('.modal-content form').attr('action', `${window.location.protocol}//${window.location.hostname}/personal/${recipient}`)
         })
+
+        /**report**/
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) 
+            {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) 
+                {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+        $('#report_pdf').on('click', function() {
+            var Url = window.location.href;
+            var search = GetURLParameter('search');
+            window.open(
+                `/personal-pdf?search=${search??''}`,
+                '_blank' // <- This is what makes it open in a new window.
+            );
+        });
     });
 </script>
 @endsection

@@ -152,4 +152,40 @@ class UsersController extends Controller
 
         return back()->with('ok', 'Usuario eliminado con éxito.');
     }
+
+    /**
+     * report
+     */
+    public function reportUsers(Request $request)
+    {
+        $search = ($request->search)??'';
+        $role = ($request->role)??'';
+
+        $lista = User::orderBy('created_at', 'DESC')
+            ->where(function($x) use($search) {
+                if ($search != '') {
+                    $x->where('username', 'like', '%'.$search.'%');
+                    $x->orWhere('name', 'like', '%'.$search.'%');
+                    $x->orWhere('last_name', 'like', '%'.$search.'%');
+                }
+            })
+            ->whereHas('roles', function($q) use($role) {
+                if ($role != '') {
+                    $q->where('name', $role);
+                } else {
+                    $q->where('name', '!=', 'client');
+                }
+            })
+            ->get();
+    
+        $pdf = \PDF::loadView('users.users-pdf', [
+            'lista' => $lista
+        ]);
+        $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream('usuarios.pdf');
+        
+        // return view('users.users-pdf', [
+        //     'lista' => $lista
+        // ]);
+    }
 }

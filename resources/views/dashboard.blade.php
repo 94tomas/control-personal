@@ -11,12 +11,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Starter Page</h1>
+                        <h1 class="m-0">Dashboard</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Starter Page</li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -32,14 +31,14 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>150</h3>
+                                <h3>{{ $data['users'] }}</h3>
                 
-                                <p>New Orders</p>
+                                <p>Usuarios</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-shopping-bag"></i>
+                                <i class="fa fa-users"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="/usuarios/lista" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -48,14 +47,14 @@
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                <h3>{{ $data['employee'] }}</h3>
                 
-                                <p>Bounce Rate</p>
+                                <p>Personal</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-bar-chart"></i>
+                                <i class="fa fa-users"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="/personal/lista" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -64,14 +63,14 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>44</h3>
+                                <h3>{{ $data['hours'] }}</h3>
                 
-                                <p>User Registrations</p>
+                                <p>Horarios</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-user-plus"></i>
+                                <i class="fa fa-clock-o"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="/horarios/lista" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- /.col -->
@@ -80,14 +79,14 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h3>{{ $data['charges'] }}</h3>
                 
-                                <p>Unique Visitors</p>
+                                <p>Cargos</p>
                             </div>
                             <div class="icon">
-                                <i class="fa fa-pie-chart"></i>
+                                <i class="fa fa-briefcase"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                            <a href="/cargos/lista" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- /.col -->

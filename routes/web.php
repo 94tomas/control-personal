@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/usuarios/{id}', 'UsersController@show');
         Route::post('/enable-buy/{id}', 'UsersController@enableBuy')->name('enable-buy');
         Route::delete('/usuarios/{id}', 'UsersController@destroy')->name('delete-user');
+        Route::get('/usuarios-pdf', 'UsersController@reportUsers');
 
         // route cargos
         Route::get('cargos/lista', 'CargosController@index');
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('cargos/editar/{id}', 'CargosController@edit');
         Route::put('cargos/{id}', 'CargosController@update')->name('editar-cargo');
         Route::delete('cargos/{id}', 'CargosController@destroy')->name('eliminar-cargo');
+        Route::get('/cargos-pdf', 'CargosController@reportCargos');
 
         // route horarios
         Route::get('horarios/lista', 'HorariosController@index');
@@ -55,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('horarios/editar/{id}', 'HorariosController@edit');
         Route::put('horarios/{id}', 'HorariosController@update')->name('editar-horario');
         Route::delete('horarios/{id}', 'HorariosController@destroy')->name('eliminar-horario');
+        Route::get('/horarios-pdf', 'HorariosController@reportHorarios');
     });
     /**
      * user
@@ -73,6 +76,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('personal/editar/{id}', 'EmpleadoController@edit');
         Route::put('personal/{id}', 'EmpleadoController@update')->name('editar-personal');
         Route::delete('personal/{id}', 'EmpleadoController@destroy');
+        Route::get('/personal-pdf', 'EmpleadoController@reportPersonal');
 
         // route asistencias
         Route::get('asistencias', 'AsistenciasController@index');
@@ -81,6 +85,7 @@ Route::middleware(['auth'])->group(function () {
 
         // route nomina
         Route::get('/nomina', 'NominaController@index');
+        Route::get('/nomina-pdf', 'NominaController@reportNomina');
     });
 });
 

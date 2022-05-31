@@ -33,6 +33,13 @@
             <div class="card card-secondary">
                 <div class="card-header">
                     Empleados
+                    <div class="card-tools mr-0">
+                        <div class="ml-auto">
+                            <a href="/nomina-pdf" target="_blank" class="btn bg-red">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">

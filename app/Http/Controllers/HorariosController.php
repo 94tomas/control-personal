@@ -116,4 +116,23 @@ class HorariosController extends Controller
         $del->delete();
         return back()->with('Se eliminó rl horario correctamente.');
     }
+
+    /***
+     * report
+     */
+    public function reportHorarios()
+    {
+        $lista = Horario::orderBy('created_at', 'DESC')
+            ->get();
+
+        $pdf = \PDF::loadView('horarios.horarios-pdf', [
+            'lista' => $lista
+        ]);
+        $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream('horarios.pdf');
+        
+        // return view('horarios.horarios-pdf', [
+        //     'lista' => $lista
+        // ]);
+    }
 }

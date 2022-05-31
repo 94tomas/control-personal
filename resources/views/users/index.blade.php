@@ -34,20 +34,29 @@
 
                 <div class="card card-secondary">
                     <div class="card-header">
-                        <a href="/usuarios/nuevo" class="btn bg-primary">Nuevo</a>
-                        <div class="card-tools mr-0">
-                            <form action="">
-                                <div class="input-group input-group-sm my-1" style="width: 250px;">
-                                    <input type="text" name="search" class="form-control float-right" placeholder="Buscar usuario" value="{{ (Request::get('search'))??'' }}">
-          
-                                    <div class="input-group-append">
-                                      <button type="submit" class="btn btn-default">
-                                        <i class="fa fa-search"></i>
-                                      </button>
+                        <form action="">
+                            <div class="row">
+                                <div class="col-12 col-md-2 pt-2">
+                                    <a href="/usuarios/nuevo" class="btn btn-lg bg-primary d-block">Nuevo</a>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group input-group-sm mb-0">
+                                        <label for="search">Buscar</label>
+                                        <input type="text" name="search" class="form-control" placeholder="Buscar usuario" value="{{ (Request::get('search'))??'' }}">
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="col-12 col-md-6 d-flex align-items-end">
+                                    <div style="width:100%" class="d-flex">
+                                        <button type="submit" class="btn btn-primary">Buscar</button>
+                                        <div class="ml-auto">
+                                            <a href="JAVASCRIPT:;" id="report_pdf" class="btn bg-red">
+                                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
@@ -175,9 +184,8 @@
             var Url = window.location.href;
             var search = GetURLParameter('search');
             var role = GetURLParameter('role');
-            var zone = GetURLParameter('zone');
             window.open(
-                `/usuarios/pdf?search=${search??''}&role=${role??''}&zone=${zone??''}`,
+                `/usuarios-pdf?search=${search??''}&role=${role??''}`,
                 '_blank' // <- This is what makes it open in a new window.
             );
         });

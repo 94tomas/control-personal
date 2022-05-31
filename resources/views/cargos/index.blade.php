@@ -32,16 +32,18 @@
 
             <div class="card card-secondary">
                 <div class="card-header">
-                    <a href="/cargos/nuevo" class="btn btn-primary">Nuevo</a>
-                    <div class="card-tools mr-0">
-                        <div class="input-group input-group-sm mt-1" style="width: 250px;">
-                          <input type="text" name="table_search" class="form-control float-right" placeholder="Buscar">
-
-                          <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                              <i class="fa fa-search"></i>
-                            </button>
-                          </div>
+                    <div class="row">
+                        <div class="col-12 col-md-2">
+                            <a href="/cargos/nuevo" class="btn btn-lg bg-primary d-block">Nuevo</a>
+                        </div>
+                        <div class="col-12 col-md-10 d-flex align-items-end">
+                            <div style="width:100%" class="d-flex">
+                                <div class="ml-auto">
+                                    <a href="/cargos-pdf" target="_blank" class="btn bg-red">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

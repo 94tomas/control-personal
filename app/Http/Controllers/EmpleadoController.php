@@ -14,9 +14,18 @@ class EmpleadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = ($request->search)??'';
+
         $lista = Empleado::orderBy('created_at', 'DESC')
+            ->where(function($x) use($search) {
+                if ($search != '') {
+                    $x->where('cod_empleado', 'like', '%'.$search.'%');
+                    $x->orWhere('nombres', 'like', '%'.$search.'%');
+                    $x->orWhere('apellidos', 'like', '%'.$search.'%');
+                }
+            })
             ->with('cargo')
             ->paginate(10);
 
@@ -154,5 +163,34 @@ class EmpleadoController extends Controller
         $del = Empleado::find($id);
         $del->delete();
         return back()->with('ok', 'Se eliminó al usuario correctamente.');
+    }
+
+    /**
+     * report
+     */
+    public function reportPersonal(Request $request)
+    {
+        $search = ($request->search)??'';
+
+        $lista = Empleado::orderBy('created_at', 'DESC')
+            ->where(function($x) use($search) {
+                if ($search != '') {
+                    $x->where('cod_empleado', 'like', '%'.$search.'%');
+                    $x->orWhere('nombres', 'like', '%'.$search.'%');
+                    $x->orWhere('apellidos', 'like', '%'.$search.'%');
+                }
+            })
+            ->with('cargo')
+            ->get();
+
+        $pdf = \PDF::loadView('personal.personal-pdf', [
+            'lista' => $lista
+        ]);
+        $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream('empleados.pdf');
+        
+        // return view('personal.personal-pdf', [
+        //     'lista' => $lista
+        // ]);
     }
 }

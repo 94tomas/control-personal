@@ -117,4 +117,23 @@ class CargosController extends Controller
         $del->delete();
         return back()->with('ok', 'Se eliminó el cargo correctamente.');
     }
+
+    /**
+     * report
+     */
+    public function reportCargos()
+    {
+        $lista = Cargo::orderBy('created_at', 'DESC')
+            ->get();
+
+        $pdf = \PDF::loadView('cargos.cargos-pdf', [
+            'lista' => $lista
+        ]);
+        $pdf->setPaper('letter', 'portrait');
+        return $pdf->stream('cargos.pdf');
+        
+        // return view('cargos.cargos-pdf', [
+        //     'lista' => $lista
+        // ]);
+    }
 }

@@ -110,16 +110,20 @@
                         </td>
                         <td style="text-align: right; border: 1px solid;">
                             {!! $item->diferencia !!}
-                            @switch($item->descriptionDiff)
-                                @case('tarde')
+                            @if ($item->diferencia)
+                                @switch($item->descriptionDiff)
+                                    @case('tarde')
                                     <span style="background-color:#6c757d; color:#fff; padding: 0.25em 0.4em;">Tarde</span>
-                                    @break
-                                @case('antes')
-                                    <span style="background-color:#28a745; color:#fff; padding: 0.25em 0.4em;">Antes</span>
-                                    @break
-                                @default
-                                    @break
-                            @endswitch
+                                        @break
+                                    @case('antes')
+                                        <span style="background-color:#28a745; color:#fff; padding: 0.25em 0.4em;">Antes</span>
+                                        @break
+                                    @default
+                                        @break
+                                @endswitch
+                            @else
+                                <span style="background-color:#39a3a7; color:#fff; padding: 0.25em 0.4em;">Puntual</span>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

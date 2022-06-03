@@ -11,10 +11,19 @@ class Empleado extends Model
     {
         return $this->belongsTo('App\Models\Cargo');
     }
-    // horario
-    public function horario()
+    // // horario
+    // public function horario()
+    // {
+    //     return $this->belongsTo('App\Models\Horario');
+    // }
+
+    /**
+     * The horarios that belong to the Empleado
+     *
+     */
+    public function horarios()
     {
-        return $this->belongsTo('App\Models\Horario');
+        return $this->belongsToMany(Horario::class, 'horario_empleado');
     }
     // asistencia
     public function asistencia()

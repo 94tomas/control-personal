@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Asistencia;
 use App\Models\Empleado;
+use App\Models\Horario;
 use \Carbon\Carbon;
 
 class AsistenciasController extends Controller
@@ -35,7 +36,7 @@ class AsistenciasController extends Controller
                     $q->where('id', $personal);
                 }
             })
-            ->with('empleado.horario')
+            ->with('empleado.horarios')
             // ->get();
             ->paginate(10);
 
@@ -60,7 +61,7 @@ class AsistenciasController extends Controller
                     $item->horario,
                     $item->hora
                 ),
-                (Carbon::create($item->horario) > Carbon::create($item->hora))?0:$item->empleado->horario->tolerancia
+                (Carbon::create($item->horario) > Carbon::create($item->hora))?0:10
             );
             $item->descriptionDiff = (Carbon::create($item->horario) > Carbon::create($item->hora))?'antes':'tarde';
         }
@@ -117,7 +118,7 @@ class AsistenciasController extends Controller
                     $q->where('id', $personal);
                 }
             })
-            ->with('empleado.horario')
+            ->with('empleado.horarios')
             ->get();
 
         // dd($lista);
@@ -141,7 +142,7 @@ class AsistenciasController extends Controller
                     $item->horario,
                     $item->hora
                 ),
-                (Carbon::create($item->horario) > Carbon::create($item->hora))?0:$item->empleado->horario->tolerancia
+                (Carbon::create($item->horario) > Carbon::create($item->hora))?0:10
             );
             $item->descriptionDiff = (Carbon::create($item->horario) > Carbon::create($item->hora))?'antes':'tarde';
         }

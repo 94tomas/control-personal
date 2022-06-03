@@ -73,8 +73,9 @@
             <thead>
                 <tr>
                     <th style="text-align:left;">CARGO</th>
-                    <th style="text-align:center;">TIPO TARIFA</th>
-                    <th style="text-align:center;">TARIFA</th>
+                    <th style="text-align:center;">DESCRIPCIÓN</th>
+                    {{-- <th style="text-align:center;">TIPO TARIFA</th>
+                    <th style="text-align:center;">TARIFA</th> --}}
                     <th style="text-align:right;">ESTADO</th>
                 </tr>
             </thead>
@@ -82,7 +83,8 @@
                 @foreach ($lista as $item)
                     <tr>
                         <td style="border: 1px solid;">{{ $item->nombre_cargo }}</td>
-                        <td style="text-align:center; border: 1px solid;">
+                        <td style="text-align:center; border: 1px solid;">{{ $item->descripcion }}</td>
+                        {{-- <td style="text-align:center; border: 1px solid;">
                             @switch($item->tipo)
                                 @case('por_hora')
                                     Por hora
@@ -100,7 +102,7 @@
                                     @break
                             @endswitch
                         </td>
-                        <td style="text-align:center; border: 1px solid;">{{ $item->tarifa }}</td>
+                        <td style="text-align:center; border: 1px solid;">{{ $item->tarifa }}</td> --}}
                         <td style="text-align: right; border: 1px solid;">
                             @if ($item->estado)
                             <span class="badge bg-success">Activo</span>

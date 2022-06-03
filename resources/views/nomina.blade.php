@@ -50,7 +50,6 @@
                                 <th>Empleado</th>
                                 <th>Cargo</th>
                                 <th>Horario</th>
-                                <th>Tarífa</th>
                                 <th class="text-right">Estado</th>
                             </tr>
                         </thead>
@@ -60,23 +59,13 @@
                                 <td>{{ $item->cod_empleado }}</td>
                                 <td>{{ $item->nombres }} {{ $item->apellidos }}</td>
                                 <td>{{ $item->cargo->nombre_cargo }}</td>
-                                <td>{{ $item->horario->hora_inicio }} - {{ $item->horario->hora_fin }}</td>
                                 <td>
-                                    {{ $item->cargo->tarifa }}/Bs. 
-                                    @switch($item->cargo->tipo)
-                                        @case('por_hora')
-                                            Jornal
-                                            @break
-                                        @case('por_semana')
-                                            Semanal
-                                            @break
-                                        @case('por_mes')
-                                            Mensual
-                                            @break
-                                        @default
-                                            Anual
-                                            @break
-                                    @endswitch
+                                    @foreach ($item->horarios as $row)
+                                    <div class="row">
+                                        <div class="col-6">{{ $row->titulo }}</div>
+                                        <div class="col-6">{{ $row->hora_inicio }} - {{ $row->hora_fin }}</div>
+                                    </div>
+                                    @endforeach
                                 </td>
                                 <td class="text-right">
                                     @if ($item->estado)

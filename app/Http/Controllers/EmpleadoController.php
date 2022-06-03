@@ -62,8 +62,10 @@ class EmpleadoController extends Controller
             'fecha_nacimiento' => 'required',
             'genero' => 'required',
             'cargo_id' => 'required',
-            'horario_id' => 'required',
+            'horarios' => 'required',
         ]);
+
+        // dd($request);
 
         $empleado = new Empleado;
         $empleado->nombres = $request->nombres;
@@ -73,8 +75,12 @@ class EmpleadoController extends Controller
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
         $empleado->genero = $request->genero;
         $empleado->cargo_id = $request->cargo_id;
-        $empleado->horario_id = $request->horario_id;
+        // $empleado->horario_id = $request->horario_id;
         $empleado->save();
+
+        foreach ($request->horarios as $value) {
+            $empleado->horarios()->attach(Horario::where('id', $value)->first());
+        }
 
         $strCode = '';
         for ($i=0; $i < (3-strlen(strval($empleado->id))); $i++) {
@@ -105,7 +111,8 @@ class EmpleadoController extends Controller
      */
     public function edit($id)
     {
-        $dEmpleado = Empleado::find($id);
+        $dEmpleado = Empleado::where('id', $id)
+            ->with('horarios')->first();
         $horarios = Horario::orderBy('created_at', 'DESC')
             ->where('estado', 1)->get();
         $cargos = Cargo::orderBy('created_at', 'DESC')
@@ -134,7 +141,7 @@ class EmpleadoController extends Controller
             'fecha_nacimiento' => 'required',
             'genero' => 'required',
             'cargo_id' => 'required',
-            'horario_id' => 'required',
+            'horarios' => 'required',
         ]);
 
         $empleado = Empleado::find($id);
@@ -145,9 +152,14 @@ class EmpleadoController extends Controller
         $empleado->fecha_nacimiento = $request->fecha_nacimiento;
         $empleado->genero = $request->genero;
         $empleado->cargo_id = $request->cargo_id;
-        $empleado->horario_id = $request->horario_id;
+        // $empleado->horario_id = $request->horario_id;
         $empleado->estado = ($request->estado)?1:0;
         $empleado->save();
+
+        $empleado->horarios()->detach();
+        foreach ($request->horarios as $value) {
+            $empleado->horarios()->attach(Horario::where('id', $value)->first());
+        }
 
         return redirect('/personal/lista')->with('ok', 'Actualización exitosa.');
     }

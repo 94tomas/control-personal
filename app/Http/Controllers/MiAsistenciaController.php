@@ -22,9 +22,9 @@ class MiAsistenciaController extends Controller
         if (!Empleado::where('cod_empleado', $request->cod_empleado)->exists()) {
             return back();
         }
-
-        $emp = Empleado::select('id', 'cod_empleado', 'horario_id')
-            ->with('horario')
+        
+        $emp = Empleado::select('id', 'cod_empleado')
+            ->with('horarios')
             ->where('cod_empleado', $request->cod_empleado)
             ->first();
         
@@ -38,46 +38,42 @@ class MiAsistenciaController extends Controller
 
         // cantidad que debe marcar
         $cantMark = 0;
-        $cantMark += ($emp->horario->hora_inicio)?1:0;
-        $cantMark += ($emp->horario->hora_fin)?1:0;
-        $cantMark += ($emp->horario->hora_descanso)?1:0;
-        $cantMark += ($emp->horario->hora_fin_descanso)?1:0;
+        $arrayHrs = array(); 
+        foreach ($emp->horarios as $itemHr) {
+            $cantMark += ($itemHr->hora_inicio)?1:0;
+            $cantMark += ($itemHr->hora_fin)?1:0;
+
+            array_push($arrayHrs, ['inicio' => $itemHr->hora_inicio, 'fin' => $itemHr->hora_fin]);
+        }
+
+        $nowTime = Carbon::parse(date('H:i:s'))->format('H:i:s');
+        $timestamp = strtotime($nowTime);
+        $diff = null;
+        $i = null;
+        $j = null;
+
+        foreach ($arrayHrs as $a => $row) {
+            foreach ($row as $b => $time) {
+                $currDiff = abs($timestamp - strtotime($time));
+                if (is_null($diff) || $currDiff < $diff) {
+                    $i = $a;
+                    $j = $b;
+                    $diff = $currDiff;
+                }
+            }
+        }
+
+        $minutes = ($diff / 60);
+        if ($minutes >= 20) {
+            return back()->with('error', 'Registro fuera de hora.');
+        }
 
         // verificar horario actual y tipo
         $tmpHorario = null;
         $tipoHorario = null;
-        if ($cantMark == 2) {
-            switch ($cantAssis) {
-                case 1:
-                    $tmpHorario = $emp->horario->hora_fin;
-                    $tipoHorario = 'Salida 1';
-                    break;
-                default:
-                    $tmpHorario = $emp->horario->hora_inicio;
-                    $tipoHorario = 'Entrada 1';
-                    break;
-            }
-        }
-        if ($cantMark == 4) {
-            switch ($cantAssis) {
-                case 1:
-                    $tmpHorario = $emp->horario->hora_descanso;
-                    $tipoHorario = 'Salida 1';
-                    break;
-                case 2:
-                    $tmpHorario = $emp->horario->hora_fin_descanso;
-                    $tipoHorario = 'Entrada 2';
-                    break;
-                case 3:
-                    $tmpHorario = $emp->horario->hora_fin;
-                    $tipoHorario = 'Salida 2';
-                    break;
-                default:
-                    $tmpHorario = $emp->horario->hora_inicio;
-                    $tipoHorario = 'Entrada 1';
-                    break;
-            }
-        }
+
+        $tmpHorario = $arrayHrs[$i][$j];
+        $tipoHorario = $j;
 
         // marcar
         $fechaHoy = (date('Y-m-d'))?Carbon::parse(date('Y-m-d'))->format('Y-m-d H:i:s'):'';

@@ -41,15 +41,15 @@ class CargosController extends Controller
         $request->validate([
             'nombre_cargo' => 'required',
             'descripcion' => 'required',
-            'tipo' => 'required',
-            'tarifa' => 'required'
+            // 'tipo' => 'required',
+            // 'tarifa' => 'required'
         ]);
 
         $cargo = new Cargo;
         $cargo->nombre_cargo = $request->nombre_cargo;
         $cargo->descripcion = $request->descripcion;
-        $cargo->tipo = $request->tipo;
-        $cargo->tarifa = $request->tarifa;
+        // $cargo->tipo = $request->tipo;
+        // $cargo->tarifa = $request->tarifa;
         $cargo->save();
 
         return redirect('/cargos/lista')->with('ok', 'Registro éxitoso.');
@@ -90,15 +90,15 @@ class CargosController extends Controller
         $request->validate([
             'nombre_cargo' => 'required',
             'descripcion' => 'required',
-            'tipo' => 'required',
-            'tarifa' => 'required'
+            // 'tipo' => 'required',
+            // 'tarifa' => 'required'
         ]);
 
         $cargo = Cargo::find($id);
         $cargo->nombre_cargo = $request->nombre_cargo;
         $cargo->descripcion = $request->descripcion;
-        $cargo->tipo = $request->tipo;
-        $cargo->tarifa = $request->tarifa;
+        // $cargo->tipo = $request->tipo;
+        // $cargo->tarifa = $request->tarifa;
         $cargo->estado = ($request->estado)?1:0;
         $cargo->save();
 

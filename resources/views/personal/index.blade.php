@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h2 class="m-0">Lista de empleados</h2>
+                    <h2 class="m-0">Lista del personal</h2>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Lista de empleados</li>
+                        <li class="breadcrumb-item active">Lista del personal</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -62,7 +62,7 @@
                         <thead>
                             <tr>
                                 <th>Código</th>
-                                <th>Empleado</th>
+                                <th>Nombre</th>
                                 <th>Cargo</th>
                                 <th>Horario</th>
                                 <th>Estado</th>
@@ -75,7 +75,14 @@
                                 <td>{{ $item->cod_empleado }}</td>
                                 <td>{{ $item->nombres }} {{ $item->apellidos }}</td>
                                 <td>{{ $item->cargo->nombre_cargo }}</td>
-                                <td>{{ $item->horario->hora_inicio }} - {{ $item->horario->hora_fin }}</td>
+                                <td>
+                                    @foreach ($item->horarios as $row)
+                                    <div class="row">
+                                        <div class="col-6">{{ $row->titulo }}</div>
+                                        <div class="col-6">{{ $row->hora_inicio }} - {{ $row->hora_fin }}</div>
+                                    </div>
+                                    @endforeach
+                                </td>
                                 <td>
                                     @if ($item->estado)
                                     <span class="badge bg-success">Activo</span>

@@ -73,7 +73,7 @@
             <thead>
                 <tr>
                     <th style="text-align:left;">CÓDIGO</th>
-                    <th style="text-align:center;">EMPLEADO</th>
+                    <th style="text-align:center;">NOMBRE</th>
                     <th style="text-align:center;">CARGO</th>
                     <th style="text-align:center;">HORARIO</th>
                     <th style="text-align:right;">ESTADO</th>
@@ -85,7 +85,14 @@
                         <td style="border: 1px solid;">{{ $item->cod_empleado }}</td>
                         <td style="text-align:center; border: 1px solid;">{{ $item->nombres }} {{ $item->apellidos }}</td>
                         <td style="text-align:center; border: 1px solid;">{{ $item->cargo->nombre_cargo }}</td>
-                        <td style="text-align:center; border: 1px solid;">{{ $item->horario->hora_inicio }} - {{ $item->horario->hora_fin }}</td>
+                        <td style="text-align:center; border: 1px solid;">
+                            @foreach ($item->horarios as $row)
+                            <div class="row">
+                                <div class="col-6">{{ $row->titulo }}</div>
+                                <div class="col-6">{{ $row->hora_inicio }} - {{ $row->hora_fin }}</div>
+                            </div>
+                            @endforeach
+                        </td>
                         <td style="text-align: right; border: 1px solid;">
                             @if ($item->estado)
                             <span class="badge bg-success">Activo</span>

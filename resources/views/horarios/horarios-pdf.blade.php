@@ -72,20 +72,18 @@
         <table style="border: 1px solid black">
             <thead>
                 <tr>
-                    <th style="text-align:left;">HORA ENTRADA</th>
-                    <th style="text-align:center;">HORA SALIDA</th>
-                    <th style="text-align:center;">HORA DESCANSO</th>
-                    <th style="text-align:center;">HORA FIN DESCANSO</th>
+                    <th style="text-align:left;">HORARIO</th>
+                    <th style="text-align:center;">HORA INICIO</th>
+                    <th style="text-align:center;">HORA FIN</th>
                     <th style="text-align:right;">ESTADO</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($lista as $item)
                     <tr>
-                        <td style="border: 1px solid;">{{ $item->hora_inicio }}</td>
+                        <td style="border: 1px solid;">{{ $item->titulo }}</td>
+                        <td style="text-align:center; border: 1px solid;">{{ $item->hora_inicio }}</td>
                         <td style="text-align:center; border: 1px solid;">{{ $item->hora_fin }}</td>
-                        <td style="text-align:center; border: 1px solid;">{{ $item->hora_descanso }}</td>
-                        <td style="text-align:center; border: 1px solid;">{{ $item->hora_fin_descanso }}</td>
                         <td style="text-align: right; border: 1px solid;">
                             @if ($item->estado)
                             <span class="badge bg-success">Activo</span>

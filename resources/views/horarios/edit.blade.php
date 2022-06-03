@@ -43,6 +43,28 @@
                                 <div class="row">
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
+                                            <label for="titulo">Título</label>
+                                            <input type="text" class="form-control {{ ($errors->has('titulo')) ? 'is-invalid' : '' }}" name="titulo" id="titulo" value="{{ $horario->titulo }}">
+                                            @if($errors->has('titulo'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    {{ $errors->first('titulo') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="tolerancia">Tolerancia (en minutos)</label>
+                                            <input type="number" min="0" max="60" step="1" class="form-control {{ ($errors->has('tolerancia')) ? 'is-invalid' : '' }}" name="tolerancia" id="tolerancia" value="{{ $horario->tolerancia }}">
+                                            @if($errors->has('tolerancia'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    {{ $errors->first('tolerancia') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
                                             <label for="hora_inicio">Hora de entrada</label>
                                             <input type="time" class="form-control {{ ($errors->has('hora_inicio')) ? 'is-invalid' : '' }}" name="hora_inicio" id="hora_inicio" value="{{ $horario->hora_inicio }}">
                                             @if($errors->has('hora_inicio'))
@@ -63,7 +85,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-6">
+                                    {{-- <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="hora_descanso">Hora inicio descanso</label>
                                             <input type="time" class="form-control {{ ($errors->has('hora_descanso')) ? 'is-invalid' : '' }}" name="hora_descanso" id="hora_descanso" value="{{ $horario->hora_descanso }}">
@@ -84,18 +106,7 @@
                                                 </span>
                                             @endif
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="tolerancia">Tolerancia (en minutos)</label>
-                                            <input type="number" min="0" max="60" step="1" class="form-control {{ ($errors->has('tolerancia')) ? 'is-invalid' : '' }}" name="tolerancia" id="tolerancia" value="{{ $horario->tolerancia }}">
-                                            @if($errors->has('tolerancia'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    {{ $errors->first('tolerancia') }}
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-12 col-md-6">
                                         <div class="form-group pt-4">
                                             <div class="custom-control custom-switch">

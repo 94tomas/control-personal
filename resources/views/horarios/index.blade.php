@@ -52,10 +52,11 @@
                     <table class="table table-hover text-nowrap table-bordered">
                         <thead>
                             <tr>
-                                <th>Hora entrada</th>
-                                <th>Hora salida</th>
-                                <th>Hora descanso</th>
-                                <th>Hora fin descanso</th>
+                                <th>Horario</th>
+                                <th>Hora inicio</th>
+                                <th>Hora fin</th>
+                                {{-- <th>Hora descanso</th> --}}
+                                {{-- <th>Hora fin descanso</th> --}}
                                 <th>Estado</th>
                                 <th style="width: 50px" class="text-right">Acción</th>
                             </tr>
@@ -63,10 +64,11 @@
                         <tbody>
                             @foreach ($lista as $item)
                             <tr>
+                                <td>{{ $item->titulo }}</td>
                                 <td>{{ $item->hora_inicio }}</td>
                                 <td>{{ $item->hora_fin }}</td>
-                                <td>{{ $item->hora_descanso }}</td>
-                                <td>{{ $item->hora_fin_descanso }}</td>
+                                {{-- <td>{{ $item->hora_descanso }}</td>
+                                <td>{{ $item->hora_fin_descanso }}</td> --}}
                                 <td>
                                     @if ($item->estado)
                                     <span class="badge bg-success">Activo</span>

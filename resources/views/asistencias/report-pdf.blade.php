@@ -106,7 +106,7 @@
                             {!! $item->tmpHora !!}
                         </td>
                         <td style="text-align:center; border: 1px solid;">
-                            {!! $item->empleado->horario->tolerancia !!} mins
+                            10 mins
                         </td>
                         <td style="text-align: right; border: 1px solid;">
                             {!! $item->diferencia !!}

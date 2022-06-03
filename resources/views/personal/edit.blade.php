@@ -98,7 +98,7 @@
                                 <div class="form-group row">
                                     <label for="genero" class="col-sm-2 col-form-label">Género</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control {{ ($errors->has('genero')) ? 'is-invalid' : '' }}" name="genero" id="genero">
+                                        <select class="select2 form-control {{ ($errors->has('genero')) ? 'is-invalid' : '' }}" name="genero" id="genero">
                                             <option value="">- Seleccionar -</option>
                                             <option value="hombre" {{ ($empleado->genero=='hombre')?'selected':'' }}>Hombre</option>
                                             <option value="mujer" {{ ($empleado->genero=='mujer')?'selected':'' }}>Mujer</option>
@@ -113,7 +113,7 @@
                                 <div class="form-group row">
                                     <label for="cargo_id" class="col-sm-2 col-form-label">Cargo</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control {{ ($errors->has('cargo_id')) ? 'is-invalid' : '' }}" name="cargo_id" id="cargo_id">
+                                        <select class="select2 form-control {{ ($errors->has('cargo_id')) ? 'is-invalid' : '' }}" name="cargo_id" id="cargo_id">
                                             <option value="">- Seleccionar -</option>
                                             @foreach ($cargos as $cg)
                                             <option value="{{ $cg->id }}" {{ ($empleado->cargo_id==$cg->id)?'selected':'' }}>
@@ -129,24 +129,27 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="horario_id" class="col-sm-2 col-form-label">Horario</label>
+                                    <label for="horarios" class="col-sm-2 col-form-label">Horario</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control {{ ($errors->has('horario_id')) ? 'is-invalid' : '' }}" name="horario_id" id="horario_id">
+                                        @php
+                                            $hrsArray = [];
+                                            foreach ($empleado->horarios as $k) {
+                                                array_push($hrsArray, $k->id);
+                                            }
+                                        @endphp
+                                        <select class="select2 form-control {{ ($errors->has('horarios')) ? 'is-invalid' : '' }}" name="horarios[]" id="horarios" multiple>
                                             <option value="">- Seleccionar -</option>
                                             @foreach ($horarios as $hr)
-                                            <option value="{{ $hr->id }}" {{ ($empleado->horario_id==$hr->id)?'selected':'' }}>
+                                            <option value="{{ $hr->id }}" {{ (in_array($hr->id, $hrsArray))?'selected':'' }}>
                                                 @php
-                                                    echo 'Turno: ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
-                                                    if ($hr->hora_descanso && $hr->hora_fin_descanso) {
-                                                        echo ' Descansos: ' .$hr->hora_descanso. ' - ' .$hr->hora_fin_descanso;
-                                                    }
+                                                    echo $hr->titulo.': ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
                                                 @endphp
                                             </option>
                                             @endforeach
                                         </select>
-                                        @if($errors->has('horario_id'))
+                                        @if($errors->has('horarios'))
                                             <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('horario_id') }}
+                                                {{ $errors->first('horarios') }}
                                             </span>
                                         @endif
                                     </div>
@@ -179,4 +182,11 @@
 
 </div>
 
+@endsection
+@section('scripts')
+<script>
+    $(function () {
+        $('.select2').select2()
+    });
+</script>
 @endsection

@@ -86,7 +86,7 @@
                                 <div class="form-group row">
                                     <label for="fecha_nacimiento" class="col-sm-2 col-form-label">Fecha nacimiento</label>
                                     <div class="col-sm-10">
-                                        <input type="date" class="form-control {{ ($errors->has('fecha_nacimiento')) ? 'is-invalid' : '' }}" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="15/01/1990" value="{{ old('fecha_nacimiento') }}">
+                                        <input type="date" class="form-control {{ ($errors->has('fecha_nacimiento')) ? 'is-invalid' : '' }}" name="fecha_nacimiento" id="fecha_nacimiento" placeholder="15/01/1990" value="{{ old('fecha_nacimiento') }}" max="1995-12-31">
                                         @if($errors->has('fecha_nacimiento'))
                                             <span class="invalid-feedback" role="alert">
                                                 {{ $errors->first('fecha_nacimiento') }}
@@ -97,7 +97,7 @@
                                 <div class="form-group row">
                                     <label for="genero" class="col-sm-2 col-form-label">Género</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control {{ ($errors->has('genero')) ? 'is-invalid' : '' }}" name="genero" id="genero">
+                                        <select class="select2 form-control {{ ($errors->has('genero')) ? 'is-invalid' : '' }}" name="genero" id="genero">
                                             <option value="">- Seleccionar -</option>
                                             <option value="hombre" {{ (old('genero')=='hombre')?'selected':'' }}>Hombre</option>
                                             <option value="mujer" {{ (old('genero')=='mujer')?'selected':'' }}>Mujer</option>
@@ -112,11 +112,11 @@
                                 <div class="form-group row">
                                     <label for="cargo_id" class="col-sm-2 col-form-label">Cargo</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control {{ ($errors->has('cargo_id')) ? 'is-invalid' : '' }}" name="cargo_id" id="cargo_id">
+                                        <select class="select2 form-control {{ ($errors->has('cargo_id')) ? 'is-invalid' : '' }}" name="cargo_id" id="cargo_id">
                                             <option value="">- Seleccionar -</option>
                                             @foreach ($cargos as $cg)
                                             <option value="{{ $cg->id }}" {{ (old('cargo_id')==$cg->id)?'selected':'' }}>
-                                                {{ $cg->nombre_cargo }} - tarifa {{ $cg->tarifa }}
+                                                {{ $cg->nombre_cargo }} - {{ $cg->descripcion }}
                                             </option>
                                             @endforeach
                                         </select>
@@ -128,24 +128,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="horario_id" class="col-sm-2 col-form-label">Horario</label>
+                                    <label for="horarios" class="col-sm-2 col-form-label">Horario</label>
                                     <div class="col-sm-10">
-                                        <select class="form-control {{ ($errors->has('horario_id')) ? 'is-invalid' : '' }}" name="horario_id" id="horario_id">
-                                            <option value="">- Seleccionar -</option>
+                                        <select class="select2 form-control {{ ($errors->has('horarios')) ? 'is-invalid' : '' }}" name="horarios[]" id="horarios" multiple data-placeholder="- Seleccionar -">
                                             @foreach ($horarios as $hr)
-                                            <option value="{{ $hr->id }}" {{ (old('horario_id')==$hr->id)?'selected':'' }}>
+                                            <option value="{{ $hr->id }}" {{ (old('horarios')==$hr->id)?'selected':'' }}>
                                                 @php
-                                                    echo 'Turno: ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
-                                                    if ($hr->hora_descanso && $hr->hora_fin_descanso) {
-                                                        echo ' Descansos: ' .$hr->hora_descanso. ' - ' .$hr->hora_fin_descanso;
-                                                    }
+                                                    echo $hr->titulo.': ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
                                                 @endphp
                                             </option>
                                             @endforeach
                                         </select>
-                                        @if($errors->has('horario_id'))
+                                        @if($errors->has('horarios'))
                                             <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('horario_id') }}
+                                                {{ $errors->first('horarios') }}
                                             </span>
                                         @endif
                                     </div>
@@ -169,4 +165,12 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+    $(function () {
+        $('.select2').select2()
+    });
+</script>
 @endsection

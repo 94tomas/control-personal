@@ -71,12 +71,12 @@
                         <p>Cargos</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="/nomina" class="nav-link {{ Request::is('nomina') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-list"></i>
                         <p>Nómina</p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

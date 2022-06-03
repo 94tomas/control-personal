@@ -65,12 +65,12 @@
                         <p>Cargos</p>
                     </a>
                 </li> --}}
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="/nomina" class="nav-link {{ Request::is('nomina') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-list"></i>
                         <p>Nómina</p>
                     </a>
-                </li>
+                </li> --}}
                 {{-- <li class="nav-item">
                     <a href="/marcar-asistencia" target="_blank" class="nav-link">
                         <i class="nav-icon fa fa-check-square"></i>

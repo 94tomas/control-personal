@@ -15,6 +15,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/OverlayScrollbars.min.css') }}" rel="stylesheet">
@@ -47,6 +48,7 @@
     </div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <script src="{{ asset('js/OverlayScrollbars.min.js') }}"></script>
     @yield('scripts')

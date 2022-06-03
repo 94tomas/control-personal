@@ -25,9 +25,9 @@ class CreateEmpleadosTable extends Migration
             $table->enum('genero', ['hombre', 'mujer']);
             $table->boolean('estado')->default(true);
             $table->foreignId('cargo_id');
-            $table->foreignId('horario_id');
+            // $table->foreignId('horario_id');
             $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('cascade');
-            $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('cascade');
+            // $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('cascade');
             $table->timestamps();
         });
     }

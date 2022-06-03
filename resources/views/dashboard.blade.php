@@ -5,7 +5,8 @@
 <div>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper bg-dash">
+        <img class="bg-dash--img" src="{{ asset('img/uatf.png') }}" alt="bg">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">

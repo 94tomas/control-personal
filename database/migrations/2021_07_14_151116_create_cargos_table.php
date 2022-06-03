@@ -18,8 +18,8 @@ class CreateCargosTable extends Migration
             $table->id();
             $table->string('nombre_cargo', 100);
             $table->string('descripcion', 255);
-            $table->double('tarifa', 20, 2);
-            $table->enum('tipo', ['por_hora', 'por_semana', 'por_mes', 'por_anio']);
+            // $table->double('tarifa', 20, 2);
+            // $table->enum('tipo', ['por_hora', 'por_semana', 'por_mes', 'por_anio']);
             $table->boolean('estado')->default(true);
             $table->timestamps();
         });

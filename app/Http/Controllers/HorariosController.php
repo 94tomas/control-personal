@@ -38,6 +38,7 @@ class HorariosController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'titulo' => 'required',
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
             'tolerancia' => 'required'
@@ -45,9 +46,10 @@ class HorariosController extends Controller
 
         $nuevo = new Horario;
         $nuevo->hora_inicio = $request->hora_inicio;
-        $nuevo->hora_descanso = $request->hora_descanso;
+        // $nuevo->hora_descanso = $request->hora_descanso;
         $nuevo->hora_fin = $request->hora_fin;
-        $nuevo->hora_fin_descanso = $request->hora_fin_descanso;
+        // $nuevo->hora_fin_descanso = $request->hora_fin_descanso;
+        $nuevo->titulo = $request->titulo;
         $nuevo->tolerancia = $request->tolerancia;
         $nuevo->save();
 
@@ -87,6 +89,7 @@ class HorariosController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'titulo' => 'required',
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
             'tolerancia' => 'required'
@@ -94,11 +97,12 @@ class HorariosController extends Controller
 
         $editar = Horario::find($id);
         $editar->hora_inicio = $request->hora_inicio;
-        $editar->hora_descanso = $request->hora_descanso;
+        // $editar->hora_descanso = $request->hora_descanso;
         $editar->hora_fin = $request->hora_fin;
-        $editar->hora_fin_descanso = $request->hora_fin_descanso;
+        // $editar->hora_fin_descanso = $request->hora_fin_descanso;
         $editar->estado = ($request->estado)?1:0;
         $editar->tolerancia = $request->tolerancia;
+        $editar->titulo = $request->titulo;
         $editar->save();
 
         return redirect('/horarios/lista')->with('ok', 'Actualización exitosa.');

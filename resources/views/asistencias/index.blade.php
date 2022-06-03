@@ -106,16 +106,20 @@
                                     </td>
                                     <td class="text-right">
                                         {!! $item->diferencia !!}
-                                        @switch($item->descriptionDiff)
-                                            @case('tarde')
-                                                <span class="badge bg-gray">Tarde</span>
-                                                @break
-                                            @case('antes')
-                                                <span class="badge bg-success">Antes</span>
-                                                @break
-                                            @default
-                                                @break
-                                        @endswitch
+                                        @if ($item->diferencia)
+                                            @switch($item->descriptionDiff)
+                                                @case('tarde')
+                                                    <span class="badge bg-gray">Tarde</span>
+                                                    @break
+                                                @case('antes')
+                                                    <span class="badge bg-success">Antes</span>
+                                                    @break
+                                                @default
+                                                    @break
+                                            @endswitch
+                                        @else
+                                            <span class="badge bg-info">Puntual</span>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

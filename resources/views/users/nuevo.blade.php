@@ -15,7 +15,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="/admin/usuarios">Lista de usuarios</a></li>
+                            <li class="breadcrumb-item"><a href="/usuarios/lista">Lista de usuarios</a></li>
                             <li class="breadcrumb-item active">Nuevo usuario</li>
                         </ol>
                     </div><!-- /.col -->
@@ -47,7 +47,7 @@
                                 <div class="card-body pb-1">
                                     <div class="row">
                                         <div class="col-12 col-md-12">
-                                            <h6>Datos personales</h6>
+                                            <h6 class="text-primary">Datos personales</h6>
                                             <hr>
                                         </div>
 
@@ -130,7 +130,7 @@
 
                                     <div class="row">
                                         <div class="col-12 col-md-12">
-                                            <h6 class="my-3">Datos de cuenta</h6>
+                                            <h6 class="my-3 text-primary">Datos de cuenta</h6>
                                             <hr>
                                         </div>
 
@@ -192,14 +192,45 @@
                                                 <label for="role">Cargo/Rol *</label>
                                                 <select class="form-control {{ ($errors->has('role')) ? 'is-invalid' : '' }}" name="role" id="role" required>
                                                     <option value="">- Seleccionar -</option>
-                                                    <option value="superadmin" {{ (old('role')=='superadmin')?'selected':'' }}>SuperAdministrador</option>
-                                                    <option value="admin" {{ (old('role')=='admin')?'selected':'' }}>Administrador</option>
+                                                    @foreach ($roles as $rol)
+                                                    <option value="{{ $rol->id }}" {{ (old('role')==$rol->name)?'selected':'' }}>{{ $rol->description }}</option>
+                                                    @endforeach
+                                                    {{-- <option value="admin" {{ (old('role')=='admin')?'selected':'' }}>Administrador</option> --}}
                                                 </select>
                                                 @if($errors->has('role'))
                                                     <span class="invalid-feedback" role="alert">
                                                         {{ $errors->first('role') }}
                                                     </span>
                                                 @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 form-group">
+                                            <hr>
+                                            <label>Permisos en el sistema</label> <br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="roles" name="permissions[]" value="roles">
+                                                <label class="form-check-label" for="roles">Roles</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="usuarios" name="permissions[]" value="usuarios">
+                                                <label class="form-check-label" for="usuarios">Usuarios</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="asistencias" name="permissions[]" value="asistencias">
+                                                <label class="form-check-label" for="asistencias">Asistencias</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="personal" name="permissions[]" value="personal">
+                                                <label class="form-check-label" for="personal">Personal</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="horarios" name="permissions[]" value="horarios">
+                                                <label class="form-check-label" for="horarios">Horarios</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="cargos" name="permissions[]" value="cargos">
+                                                <label class="form-check-label" for="cargos">Cargos</label>
                                             </div>
                                         </div>
                                     </div>

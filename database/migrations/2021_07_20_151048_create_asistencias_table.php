@@ -20,8 +20,8 @@ class CreateAsistenciasTable extends Migration
             $table->date('fecha');
             $table->time('horario')->nullable();
             $table->string('tipo')->nullable();
-            $table->foreignId('empleado_id');
-            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
+            $table->foreignId('empleado_id')->nullable();
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('set null');
             $table->timestamps();
         });
     }

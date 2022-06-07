@@ -39,7 +39,7 @@
                         <div class="col-12 col-md-10 d-flex align-items-end">
                             <div style="width:100%" class="d-flex">
                                 <div class="ml-auto">
-                                    <a href="/cargos-pdf" target="_blank" class="btn bg-red">
+                                    <a href="/cargos/report/pdf" target="_blank" class="btn bg-red">
                                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                     </a>
                                 </div>

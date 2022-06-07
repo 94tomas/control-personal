@@ -48,7 +48,7 @@
                                 <div class="card-body pb-1">
                                     <div class="row">
                                         <div class="col-12 col-md-12">
-                                            <h6>Datos personales</h6>
+                                            <h6 class="text-primary">Datos personales</h6>
                                             <hr>
                                         </div>
 
@@ -132,7 +132,7 @@
 
                                     <div class="row">
                                         <div class="col-12 col-md-12">
-                                            <h6 class="my-3">Datos de cuenta</h6>
+                                            <h6 class="my-3 text-primary">Datos de cuenta</h6>
                                             <hr>
                                         </div>
 
@@ -187,8 +187,14 @@
                                                 <label for="role">Cargo/Rol *</label>
                                                 <select class="form-control {{ ($errors->has('role')) ? 'is-invalid' : '' }}" name="role" id="role" required>
                                                     <option value="">- Seleccionar -</option>
-                                                    <option value="superadmin" {{ ($user->roles[0]->name=='superadmin')?'selected':'' }}>SuperAdministrador</option>
-                                                    <option value="admin" {{ ($user->roles[0]->name=='admin')?'selected':'' }}>Administrador</option>
+                                                    @php
+                                                        $currentRol = $user->roles[0]->name;
+                                                    @endphp
+                                                    @foreach ($roles as $rol)
+                                                    <option value="{{ $rol->id }}" {{ ($currentRol==$rol->name)?'selected':'' }}>{{ $rol->description }}</option>
+                                                    @endforeach
+                                                    {{-- <option value="superadmin" {{ ($user->roles[0]->name=='superadmin')?'selected':'' }}>SuperAdministrador</option>
+                                                    <option value="admin" {{ ($user->roles[0]->name=='admin')?'selected':'' }}>Administrador</option> --}}
                                                 </select>
                                                 @if($errors->has('role'))
                                                     <span class="invalid-feedback" role="alert">
@@ -197,11 +203,43 @@
                                                 @endif
                                             </div>
                                         </div>
+
+                                        <div class="col-12 form-group">
+                                            <hr>
+                                            <label>Permisos en el sistema</label> <br>
+                                            @php
+                                                $listRoles = explode(',', $user->roles[0]->pivot->permissions);
+                                            @endphp
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="roles" name="permissions[]" value="roles" {{ (in_array('roles', $listRoles) ? 'checked' : '' ) }}>
+                                                <label class="form-check-label" for="roles">Roles</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="usuarios" name="permissions[]" value="usuarios" {{ (in_array('usuarios', $listRoles) ? 'checked' : '' ) }}>
+                                                <label class="form-check-label" for="usuarios">Usuarios</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="asistencias" name="permissions[]" value="asistencias" {{ (in_array('asistencias', $listRoles) ? 'checked' : '' ) }}>
+                                                <label class="form-check-label" for="asistencias">Asistencias</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="personal" name="permissions[]" value="personal" {{ (in_array('personal', $listRoles) ? 'checked' : '' ) }}>
+                                                <label class="form-check-label" for="personal">Personal</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="horarios" name="permissions[]" value="horarios" {{ (in_array('horarios', $listRoles) ? 'checked' : '' ) }}>
+                                                <label class="form-check-label" for="horarios">Horarios</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="cargos" name="permissions[]" value="cargos" {{ (in_array('cargos', $listRoles) ? 'checked' : '' ) }}>
+                                                <label class="form-check-label" for="cargos">Cargos</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer text-right">
-                                    <a href="/admin/usuarios" class="btn btn-secondary">Cancelar</a>
+                                    <a href="/usuarios/lista" class="btn btn-secondary">Cancelar</a>
                                     <button type="submit" class="btn bg-primary">Actualizar</button>
                                 </div>
                             </form>

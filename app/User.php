@@ -42,11 +42,10 @@ class User extends Authenticatable
     /**
      * The roles that belong to the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class)->withTimestamps();
+        return $this->belongsToMany(Role::class)->withPivot('permissions');
     }
     public function authorizeRoles($roles)
     {

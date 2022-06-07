@@ -11,12 +11,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Lista de usuarios</h1>
+                        <h1 class="m-0">Lista de roles</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Lista de usuarios</li>
+                            <li class="breadcrumb-item active">Lista de roles</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -37,22 +37,22 @@
                         <form action="">
                             <div class="row">
                                 <div class="col-12 col-md-2 pt-2">
-                                    <a href="/usuarios/nuevo" class="btn btn-lg bg-primary d-block">Nuevo</a>
+                                    <a href="/roles/nuevo" class="btn btn-lg bg-primary d-block">Nuevo</a>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group input-group-sm mb-0">
                                         <label for="search">Buscar</label>
-                                        <input type="text" name="search" class="form-control" placeholder="Buscar usuario" value="{{ (Request::get('search'))??'' }}">
+                                        <input type="text" name="search" class="form-control" placeholder="Buscar rol" value="{{ (Request::get('search'))??'' }}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 d-flex align-items-end">
                                     <div style="width:100%" class="d-flex">
                                         <button type="submit" class="btn btn-primary">Buscar</button>
-                                        <div class="ml-auto">
+                                        {{-- <div class="ml-auto">
                                             <a href="JAVASCRIPT:;" id="report_pdf" class="btn bg-red">
                                                 <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -63,32 +63,16 @@
                         <table class="table table-hover text-nowrap table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Nombre de usuario</th>
-                                    <th>Cargo</th>
-                                    <th>Permisos</th>
-                                    <th>Estado</th>
+                                    <th>Rol</th>
+                                    <th>Descripción</th>
                                     <th style="width: 50px" class="text-right">Acción</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($lista as $item)
                                 <tr>
-                                    <td>{!! $item->name.' '.$item->last_name !!}</td>
-                                    <td>{!! $item->username !!}</td>
-                                    <td>
-                                        @foreach ($item->roles as $rol)
-                                            {!! $rol->description !!}
-                                        @endforeach
-                                    </td>
-                                    <td>{!! $item->roles[0]->pivot->permissions !!}</td>
-                                    <td>
-                                        @if ($item->status)
-                                        <span class="badge bg-success">Activo</span>
-                                        @else
-                                        <span class="badge bg-danger">Inactivo</span>
-                                        @endif
-                                    </td>
+                                    <td>{!! $item->name !!}</td>
+                                    <td>{!! $item->description !!}</td>
                                     <td class="text-right">
                                         <!-- Default dropleft button -->
                                         <div class="btn-group dropleft">
@@ -97,10 +81,9 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <!-- Dropdown menu links -->
-                                                <a class="dropdown-item" href="/usuarios/{{ $item->id }}">Ver</a>
-                                                <a class="dropdown-item" href="/usuarios/editar/{{ $item->id }}">Editar</a>
-                                                <a class="dropdown-item" href="javascript:;" onclick="if(confirm('El usuario será eliminado permanentemente del sistema, ¿Desea continuar?')){event.preventDefault(); document.getElementById('form_delete_{{ $item->id }}').submit();}">Eliminar</a>
-                                                <form id="form_delete_{{ $item->id }}" action="{{ route('delete-user', $item->id) }}" method="POST" class="d-none">
+                                                <a class="dropdown-item" href="/roles/editar/{{ $item->id }}">Editar</a>
+                                                <a class="dropdown-item" href="javascript:;" onclick="if(confirm('El rol será eliminado permanentemente del sistema, ¿Desea continuar?')){event.preventDefault(); document.getElementById('form_delete_{{ $item->id }}').submit();}">Eliminar</a>
+                                                <form id="form_delete_{{ $item->id }}" action="{{ route('delete-rol', $item->id) }}" method="POST" class="d-none">
                                                     @csrf
                                                     <input name="_method" type="hidden" value="DELETE">
                                                 </form>
@@ -168,28 +151,7 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        function GetURLParameter(sParam) {
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) 
-            {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] == sParam) 
-                {
-                    return sParameterName[1];
-                }
-            }
-        }
-
-        $('#report_pdf').on('click', function() {
-            var Url = window.location.href;
-            var search = GetURLParameter('search');
-            var role = GetURLParameter('role');
-            window.open(
-                `/usuarios/report/pdf?search=${search??''}&role=${role??''}`,
-                '_blank' // <- This is what makes it open in a new window.
-            );
-        });
+        //
     });
 </script>
 @endsection

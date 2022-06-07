@@ -215,7 +215,7 @@
             var Url = window.location.href;
             var search = GetURLParameter('search');
             window.open(
-                `/personal-pdf?search=${search??''}`,
+                `/personal/report/pdf?search=${search??''}`,
                 '_blank' // <- This is what makes it open in a new window.
             );
         });

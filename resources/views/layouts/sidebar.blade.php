@@ -35,54 +35,72 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
+                @if (count(Auth::user()->roles) > 0)
+                    @php
+                        $listRoles = explode(',', Auth::user()->roles[0]->pivot->permissions);
+                    @endphp
+                @endif
+  
                 <li class="nav-item">
                     <a href="/dashboard" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-tachometer"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
+
+                @if (in_array('roles', $listRoles))
                 <li class="nav-item">
                     <a href="/roles/lista" class="nav-link {{ Request::is('roles/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-shield"></i>
                         <p>Roles del sistema</p>
                     </a>
                 </li>
+                @endif
+
+                @if (in_array('usuarios', $listRoles))
                 <li class="nav-item">
                     <a href="/usuarios/lista" class="nav-link {{ Request::is('usuarios/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
                         <p>Usuarios del sistema</p>
                     </a>
                 </li>
+                @endif
+                
+                @if (in_array('asistencias', $listRoles))
                 <li class="nav-item">
                     <a href="/asistencias" class="nav-link {{ Request::is('asistencias') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-calendar"></i>
                         <p>Asistencia</p>
                     </a>
                 </li>
+                @endif
+                
+                @if (in_array('personal', $listRoles))
                 <li class="nav-item">
                     <a href="/personal/lista" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
                         <p>Personal</p>
                     </a>
                 </li>
+                @endif
+                
+                @if (in_array('horarios', $listRoles))
                 <li class="nav-item">
                     <a href="/horarios/lista" class="nav-link {{ Request::is('horarios/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-clock-o"></i>
                         <p>Horarios</p>
                     </a>
                 </li>
+                @endif
+                
+                @if (in_array('cargos', $listRoles))
                 <li class="nav-item">
                     <a href="/cargos/lista" class="nav-link {{ Request::is('cargos/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-briefcase"></i>
                         <p>Cargos</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a href="/nomina" class="nav-link {{ Request::is('nomina') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-list"></i>
-                        <p>Nómina</p>
-                    </a>
-                </li> --}}
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

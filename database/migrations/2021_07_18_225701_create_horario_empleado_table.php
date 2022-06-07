@@ -15,10 +15,10 @@ class CreateHorarioEmpleadoTable extends Migration
     {
         Schema::create('horario_empleado', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('horario_id');
-            $table->foreignId('empleado_id');
-            $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('cascade');
-            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
+            $table->foreignId('horario_id')->nullable();
+            $table->foreignId('empleado_id')->nullable();
+            $table->foreign('horario_id')->references('id')->on('horarios')->onDelete('set null');
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $role_super = Role::where('name', 'superadmin')->first();
+        // $role_super = Role::where('name', 'superadmin')->first();
         $role_admin = Role::where('name', 'admin')->first();
 
         $faker = Faker::create();
@@ -33,18 +33,18 @@ class UserSeeder extends Seeder
         $add->save();
         $add->roles()->attach($role_admin);
 
-        $add = new User;
-        $add->name = $faker->firstName();
-        $add->last_name = $faker->lastName();
-        $add->username = 'superadmin';
-        $add->email = 'superadmin@dev.com';
-        $add->direction = $faker->streetAddress();
-        $add->phone = $faker->e164PhoneNumber();
-        $add->ci = $faker->randomNumber(7);
-        $add->birthday = $faker->date($format = 'Y-m-d', $max = 'now');
-        $add->status = 1;
-        $add->password = bcrypt('asdfasdf');
-        $add->save();
-        $add->roles()->attach($role_super);
+        // $add = new User;
+        // $add->name = $faker->firstName();
+        // $add->last_name = $faker->lastName();
+        // $add->username = 'superadmin';
+        // $add->email = 'superadmin@dev.com';
+        // $add->direction = $faker->streetAddress();
+        // $add->phone = $faker->e164PhoneNumber();
+        // $add->ci = $faker->randomNumber(7);
+        // $add->birthday = $faker->date($format = 'Y-m-d', $max = 'now');
+        // $add->status = 1;
+        // $add->password = bcrypt('asdfasdf');
+        // $add->save();
+        // $add->roles()->attach($role_super);
     }
 }

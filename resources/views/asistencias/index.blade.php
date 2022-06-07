@@ -199,17 +199,7 @@
             var fecha_init = GetURLParameter('fecha_init');
             var fecha_end = GetURLParameter('fecha_end');
             window.open(
-                `/asistencias-pdf?personal=${personal??''}&fecha_init=${fecha_init??''}&fecha_end=${fecha_end??''}`,
-                '_blank' // <- This is what makes it open in a new window.
-            );
-        });
-        $('#report_excel').on('click', function() {
-            var Url = window.location.href;
-            var personal = GetURLParameter('personal');
-            var fecha_init = GetURLParameter('fecha_init');
-            var fecha_end = GetURLParameter('fecha_end');
-            window.open(
-                `/asistencias-excel?personal=${personal??''}&fecha_init=${fecha_init??''}&fecha_end=${fecha_end??''}`,
+                `/asistencias/pdf?personal=${personal??''}&fecha_init=${fecha_init??''}&fecha_end=${fecha_end??''}`,
                 '_blank' // <- This is what makes it open in a new window.
             );
         });

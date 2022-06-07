@@ -37,7 +37,11 @@ class UsersController extends Controller
     }
     public function create()
     {
-        return view('users.nuevo');
+        $roles = Role::select('id', 'name', 'description')
+            ->orderBy('created_at', 'ASC')->get();
+        return view('users.nuevo', [
+            'roles' => $roles
+        ]);
     }
     public function store(Request $request)
     {
@@ -52,13 +56,8 @@ class UsersController extends Controller
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required',
+            'permissions' => 'required',
         ]);
-
-        // if ($request->role == 'distributor') {
-        //     if (User::where('zone_id', $request->zone)->exists()) {
-        //         return back()->with('error', 'Ya existe un distribuidor registrado en la zona seleccionada.')->withInput();
-        //     }
-        // }
 
         $user = new User;
         $user->name = $request->name;
@@ -72,16 +71,22 @@ class UsersController extends Controller
         $user->password = bcrypt($request->password);
         $user->status = ($request->status=='on')?1:0;
         $user->save();
-        $user->roles()->attach(Role::where('name', $request->role)->first());
+
+        $permissions = implode(',', $request->permissions);
+        $user->roles()->attach($request->role, ['permissions'=>$permissions]);
 
         return redirect('/usuarios/lista')->with('ok', 'Registro éxitoso.');
     }
     public function edit($id)
     {
+        $roles = Role::select('id', 'name', 'description')
+            ->orderBy('created_at', 'ASC')->get();
+
         $user = User::find($id);
 
         return view('users.editar', [
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles
         ]);
     }
     public function show($id)
@@ -104,6 +109,7 @@ class UsersController extends Controller
             'username' => 'required|string|unique:users,username,' . $id,
             'email' => 'required|string|email|unique:users,email,' . $id,
             'role' => 'required',
+            'permissions' => 'required',
         ]);
 
         $user = User::find($id);
@@ -125,12 +131,12 @@ class UsersController extends Controller
         $user->status = ($request->status=='on')?1:0;
         $user->save();
 
-        $user->save();
-
-        if ($user->roles[0]->name != $request->role) {
-            $user->roles()->detach();
-            $user->roles()->attach(Role::where('name', $request->role)->first());
-        }
+        $permissions = implode(',', $request->permissions);
+        $user->roles()->detach();
+        $user->roles()->attach($request->role, ['permissions'=>$permissions]);
+        // if ($user->roles[0]->name != $request->role) {
+            // $user->roles()->attach(Role::where('name', $request->role)->first());
+        // }
         
         return redirect('/usuarios/lista')->with('ok', 'Datos actualizado exitosamente.');
     }

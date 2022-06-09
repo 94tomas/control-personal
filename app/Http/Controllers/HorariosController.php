@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Horario;
+use DateTime;
 
 class HorariosController extends Controller
 {
@@ -43,6 +44,13 @@ class HorariosController extends Controller
             'hora_fin' => 'required',
             'tolerancia' => 'required'
         ]);
+
+        $hrInicio = date('Y-m-d H:i:s', strtotime($request->hora_inicio));
+        $hrFin = date('Y-m-d H:i:s', strtotime($request->hora_fin));
+
+        if ($hrInicio >= $hrFin) {
+            return back()->with('error', 'Error en rango de horarios.')->withInput();
+        }
 
         $nuevo = new Horario;
         $nuevo->hora_inicio = $request->hora_inicio;

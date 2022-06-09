@@ -65,7 +65,13 @@ class EmpleadoController extends Controller
             'horarios' => 'required',
         ]);
 
-        // dd($request);
+        // dd($request->horarios);
+        // foreach ($request->horarios as $itemHr) {
+        //     $horario = Horario::select('id', 'hora_inicio', 'hora_fin')
+        //         ->where('id', $itemHr)->first();
+
+        //     dd($horario);
+        // }
 
         $empleado = new Empleado;
         $empleado->nombres = $request->nombres;

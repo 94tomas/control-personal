@@ -44,8 +44,14 @@
             </a>
         </li> --}}
 
+        <button type="button" class="btn btn-outline-primary btn-sm" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar sesión
+        </button>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
         <!-- Account Dropdown Menu -->
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="fa fa-user"></i>
             </a>
@@ -61,7 +67,7 @@
                     @csrf
                 </form>
             </div>
-        </li>
+        </li> --}}
     </ul>
 </nav>
 <!-- /.navbar -->

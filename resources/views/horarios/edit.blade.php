@@ -26,6 +26,10 @@
     <div class="content">
         <div class="container-fluid">
 
+            {{-- mensaje al usuario --}}
+            @include('layouts.partials.alertas')
+            {{-- fin mensaje al usuario --}}
+
             <div class="row">
                 <div class="col-12 col-md-10 offset-md-1">
                     <!-- general form elements -->

@@ -47,6 +47,8 @@ class AsistenciasController extends Controller
             $fecha = Carbon::parse(date($item->fecha));
             $mes = $meses[($fecha->format('n')) - 1];
             $item->fecha = $fecha->format('d') .'-'. $mes .'-'. $fecha->format('Y');
+            $dias = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+            $item->dia = $dias[$fecha->format('N')-1];
 
             $now = Carbon::parse($item->hora);
             $item->tmpHora = $now->format('g:i:s A');
@@ -128,6 +130,8 @@ class AsistenciasController extends Controller
             $fecha = Carbon::parse(date($item->fecha));
             $mes = $meses[($fecha->format('n')) - 1];
             $item->fecha = $fecha->format('d') .'-'. $mes .'-'. $fecha->format('Y');
+            $dias = array('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo');
+            $item->dia = $dias[$fecha->format('N')-1];
 
             $now = Carbon::parse($item->hora);
             $item->tmpHora = $now->format('g:i:s A');

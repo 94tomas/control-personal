@@ -91,7 +91,7 @@
                 @foreach ($lista as $item)
                     <tr>
                         <td style="border: 1px solid;">
-                            {!! $item->fecha !!}
+                            {!! $item->dia !!} {!! $item->fecha !!}
                         </td>
                         <td style="text-align:center; border: 1px solid;">
                             {!! $item->empleado->cod_empleado !!}

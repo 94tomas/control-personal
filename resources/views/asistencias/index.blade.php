@@ -87,7 +87,7 @@
                             @foreach ($lista as $item)
                                 <tr>
                                     <td>
-                                        {!! $item->fecha !!}
+                                        {!! $item->dia !!} {!! $item->fecha !!}
                                     </td>
                                     <td>
                                         {!! $item->empleado->cod_empleado !!}

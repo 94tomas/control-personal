@@ -23,6 +23,8 @@ class CreateHorariosTable extends Migration
             $table->time('hora_fin');
             $table->integer('tolerancia');
             $table->boolean('estado')->default(true);
+            $table->foreignId('cargo_id')->nullable();
+            $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('set null');
             $table->timestamps();
         });
     }

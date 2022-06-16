@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('personal/{id}', 'EmpleadoController@update')->name('editar-personal');
         Route::delete('personal/{id}', 'EmpleadoController@destroy');
         Route::get('/personal/report/pdf', 'EmpleadoController@reportPersonal');
+        Route::get('/personal/horarios', 'EmpleadoController@horariosPorCargo');
 
         // route horarios
         Route::get('horarios/lista', 'HorariosController@index');

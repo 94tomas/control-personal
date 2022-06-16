@@ -120,9 +120,11 @@ class EmpleadoController extends Controller
         $dEmpleado = Empleado::where('id', $id)
             ->with('horarios')->first();
         $horarios = Horario::orderBy('created_at', 'DESC')
-            ->where('estado', 1)->get();
+            ->where('estado', 1)
+            ->where('cargo_id', $dEmpleado->cargo_id)->get();
         $cargos = Cargo::orderBy('created_at', 'DESC')
             ->where('estado', 1)->get();
+            
         return view('personal.edit')->with([
             'empleado' => $dEmpleado,
             'horarios' => $horarios,
@@ -210,5 +212,25 @@ class EmpleadoController extends Controller
         // return view('personal.personal-pdf', [
         //     'lista' => $lista
         // ]);
+    }
+
+    /**
+     * horarios
+     */
+    public function horariosPorCargo(Request $request)
+    {
+        $cargo = $request->cargo;
+        $data = Horario::where('cargo_id', $cargo)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        $content = '';
+        foreach ($data as $item) {
+            $content .= '<option value="'.$item->id.'">';
+            $content .= $item->titulo.': ' .$item->hora_inicio. ' - ' .$item->hora_fin;
+            $content .= '</option>';
+        }
+
+        return response()->json($content, 200);
     }
 }

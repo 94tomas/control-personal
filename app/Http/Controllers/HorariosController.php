@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Horario;
+use App\Models\Cargo;
 use DateTime;
 
 class HorariosController extends Controller
@@ -27,7 +28,10 @@ class HorariosController extends Controller
      */
     public function create()
     {
-        return view('horarios.create');
+        $cargos = Cargo::orderBy('created_at', 'DESC')
+            ->where('estado', 1)->get();
+
+        return view('horarios.create')->with(['cargos' => $cargos]);
     }
 
     /**
@@ -42,7 +46,8 @@ class HorariosController extends Controller
             'titulo' => 'required',
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
-            'tolerancia' => 'required'
+            'tolerancia' => 'required',
+            'cargo_id' => 'required'
         ]);
 
         $hrInicio = date('Y-m-d H:i:s', strtotime($request->hora_inicio));
@@ -59,6 +64,7 @@ class HorariosController extends Controller
         // $nuevo->hora_fin_descanso = $request->hora_fin_descanso;
         $nuevo->titulo = $request->titulo;
         $nuevo->tolerancia = $request->tolerancia;
+        $nuevo->cargo_id = $request->cargo_id;
         $nuevo->save();
 
         return redirect('/horarios/lista')->with('ok', 'Registro éxitoso.');
@@ -84,7 +90,11 @@ class HorariosController extends Controller
     public function edit($id)
     {
         $hor = Horario::find($id);
-        return view('horarios.edit')->with('horario', $hor);
+        
+        $cargos = Cargo::orderBy('created_at', 'DESC')
+            ->where('estado', 1)->get();
+        
+        return view('horarios.edit')->with(['cargos' => $cargos, 'horario' => $hor]);
     }
 
     /**
@@ -100,7 +110,8 @@ class HorariosController extends Controller
             'titulo' => 'required',
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
-            'tolerancia' => 'required'
+            'tolerancia' => 'required',
+            'cargo_id' => 'required'
         ]);
 
         $editar = Horario::find($id);
@@ -111,6 +122,7 @@ class HorariosController extends Controller
         $editar->estado = ($request->estado)?1:0;
         $editar->tolerancia = $request->tolerancia;
         $editar->titulo = $request->titulo;
+        $editar->cargo_id = $request->cargo_id;
         $editar->save();
 
         return redirect('/horarios/lista')->with('ok', 'Actualización exitosa.');

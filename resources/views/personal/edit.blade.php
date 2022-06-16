@@ -187,6 +187,21 @@
 <script>
     $(function () {
         $('.select2').select2()
+
+        $('#cargo_id').on('input', function() {
+            // console.log($(this).val());
+            var cargo = $(this).val();
+            var url = '/personal/horarios?cargo='+cargo;
+            if (cargo != '') {
+                $('#horarios').empty();
+                $.get(url, function(response) {
+                    // console.log(response);
+                    $('#horarios').append(response);
+                });
+            } else {
+                $('#horarios').empty();
+            }
+        });
     });
 </script>
 @endsection

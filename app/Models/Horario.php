@@ -20,4 +20,10 @@ class Horario extends Model
     {
         return $this->belongsToMany(Empleado::class, 'horario_empleado');
     }
+
+    // cargo
+    public function cargo()
+    {
+        return $this->belongsTo('App\Models\Cargo');
+    }
 }

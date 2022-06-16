@@ -131,13 +131,13 @@
                                     <label for="horarios" class="col-sm-2 col-form-label">Horario</label>
                                     <div class="col-sm-10">
                                         <select class="select2 form-control {{ ($errors->has('horarios')) ? 'is-invalid' : '' }}" name="horarios[]" id="horarios" multiple data-placeholder="- Seleccionar -">
-                                            @foreach ($horarios as $hr)
+                                            {{-- @foreach ($horarios as $hr)
                                             <option value="{{ $hr->id }}" {{ (old('horarios')==$hr->id)?'selected':'' }}>
                                                 @php
                                                     echo $hr->titulo.': ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
                                                 @endphp
                                             </option>
-                                            @endforeach
+                                            @endforeach --}}
                                         </select>
                                         @if($errors->has('horarios'))
                                             <span class="invalid-feedback" role="alert">
@@ -171,6 +171,21 @@
 <script>
     $(function () {
         $('.select2').select2()
+
+        $('#cargo_id').on('input', function() {
+            // console.log($(this).val());
+            var cargo = $(this).val();
+            var url = '/personal/horarios?cargo='+cargo;
+            if (cargo != '') {
+                $('#horarios').empty();
+                $.get(url, function(response) {
+                    // console.log(response);
+                    $('#horarios').append(response);
+                });
+            } else {
+                $('#horarios').empty();
+            }
+        });
     });
 </script>
 @endsection

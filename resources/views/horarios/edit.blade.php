@@ -89,6 +89,25 @@
                                             @endif
                                         </div>
                                     </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="cargo_id">Cargo</label>
+                                            <select class="select2 form-control {{ ($errors->has('cargo_id')) ? 'is-invalid' : '' }}" name="cargo_id" id="cargo_id">
+                                                <option value="">- Seleccionar -</option>
+                                                @foreach ($cargos as $cg)
+                                                <option value="{{ $cg->id }}" {{ ($horario->cargo_id==$cg->id)?'selected':'' }}>
+                                                    {{ $cg->nombre_cargo }} - tarifa {{ $cg->tarifa }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                            @if($errors->has('cargo_id'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    {{ $errors->first('cargo_id') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
                                     {{-- <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="hora_descanso">Hora inicio descanso</label>

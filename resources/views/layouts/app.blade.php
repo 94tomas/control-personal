@@ -14,12 +14,12 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/OverlayScrollbars.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}?v=0.1" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}?v=0.1" rel="stylesheet">
+    <link href="{{ asset('css/adminlte.min.css') }}?v=0.1" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}?v=0.1" rel="stylesheet">
+    <link href="{{ asset('css/OverlayScrollbars.min.css') }}?v=0.1" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}?v=0.1" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed" data-panel-auto-height-mode="height">
     <div id="app" class="wrapper">
@@ -48,10 +48,10 @@
         @include('layouts.footer')
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('js/adminlte.min.js') }}"></script>
-    <script src="{{ asset('js/OverlayScrollbars.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}?v=0.1"></script>
+    <script src="{{ asset('js/select2.full.min.js') }}?v=0.1"></script>
+    <script src="{{ asset('js/adminlte.min.js') }}?v=0.1"></script>
+    <script src="{{ asset('js/OverlayScrollbars.min.js') }}?v=0.1"></script>
     @yield('scripts')
 </body>
 </html>

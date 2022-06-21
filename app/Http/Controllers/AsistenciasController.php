@@ -95,6 +95,9 @@ class AsistenciasController extends Controller
         }
         $hours = floor($time / 60);
         $minutes = ($time % 60) - $tolerancia;
+        if ($minutes <= 0) {
+            return;
+        }
         return $hours.' hrs - '.$minutes.' mins';
         // return sprintf($format, $hours, $minutes);
     }

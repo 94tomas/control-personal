@@ -6,3 +6,8 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #c2c7d0 !important;
+}

@@ -13,17 +13,11 @@ class Horario extends Model
     // }
 
     /**
-     * The empleados that belong to the Horario
+     * Get the empleado that owns the Horario
      *
      */
-    public function empleados()
+    public function empleado()
     {
-        return $this->belongsToMany(Empleado::class, 'horario_empleado');
-    }
-
-    // cargo
-    public function cargo()
-    {
-        return $this->belongsTo('App\Models\Cargo');
+        return $this->belongsTo(Empleado::class);
     }
 }

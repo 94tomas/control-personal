@@ -87,13 +87,20 @@ class EmpleadoController extends Controller
         }
 
         if (!Empleado::where('cod_empleado', $request->cod_empleado)->exists()) {
-            return back();
+            return response()->json('back', 102);
         }
 
         $emp = Empleado::select('id', 'cod_empleado')
-            ->with('horarios')
             ->where('cod_empleado', $request->cod_empleado)
             ->first();
+
+        $listaHorarios = Horario::where('empleado_id', $emp->id)
+            ->where('dia', date('D'))
+            ->get();
+
+        if (count($listaHorarios) <= 0) {
+            return response()->json('error', 103);
+        }
 
         // Hora del usuario
         $tmpHora = Carbon::create($request->hora);
@@ -127,7 +134,7 @@ class EmpleadoController extends Controller
         // cantidad que debe marcar
         $cantMark = 0;
         $arrayHrs = array(); 
-        foreach ($emp->horarios as $itemHr) {
+        foreach ($listaHorarios as $itemHr) {
             $cantMark += ($itemHr->hora_inicio)?1:0;
             $cantMark += ($itemHr->hora_fin)?1:0;
 
@@ -153,7 +160,7 @@ class EmpleadoController extends Controller
 
         $minutes = ($diff / 60);
         if ($minutes >= 20) {
-            return back()->with('error', 'Registro fuera de hora.');
+            return response()->json('error', 104);
         }
 
         // verificar horario actual y tipo

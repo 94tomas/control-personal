@@ -26,9 +26,9 @@
 
         <!-- Main content -->
         <div class="content">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="col-lg-4 col-sm-6 col-12">
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
@@ -44,7 +44,7 @@
                     </div>
                     <!-- /.col -->
                     
-                    <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="col-lg-4 col-sm-6 col-12">
                         <!-- small box -->
                         <div class="small-box bg-success">
                             <div class="inner">
@@ -60,7 +60,7 @@
                     </div>
                     <!-- /.col -->
                     
-                    <div class="col-lg-3 col-sm-6 col-12">
+                    {{-- <div class="col-lg-3 col-sm-6 col-12">
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
@@ -73,10 +73,10 @@
                             </div>
                             <a href="/horarios/lista" class="small-box-footer">Ver más <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- /.col -->
 
-                    <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="col-lg-4 col-sm-6 col-12">
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">

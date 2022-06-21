@@ -76,12 +76,27 @@
                                 <td>{{ $item->nombres }} {{ $item->apellidos }}</td>
                                 <td>{{ $item->cargo->nombre_cargo }}</td>
                                 <td>
-                                    @foreach ($item->horarios as $row)
-                                    <div class="row">
-                                        <div class="col-6">{{ $row->titulo }}</div>
-                                        <div class="col-6">{{ $row->hora_inicio }} - {{ $row->hora_fin }}</div>
-                                    </div>
-                                    @endforeach
+                                    @php
+                                        $dias = array(
+                                            'Mon' => 'Lunes',
+                                            'Tue' => 'Martes',
+                                            'Wed' => 'Miércoles',
+                                            'Thu' => 'Jueves',
+                                            'Fri' => 'Viernes',
+                                            'Sat' => 'Sábado',
+                                            'Sun' => 'Domingo',
+                                        );
+                                    @endphp
+                                    <table class="table table-sm mb-0">
+                                        <tbody>
+                                            @foreach ($item->horarios as $row)
+                                            <tr>
+                                                <td class="col-6">{{ $row->titulo }}</td>
+                                                <td class="col-6">{{ $dias[$row->dia] }} {{ $row->hora_inicio }} - {{ $row->hora_fin }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </td>
                                 <td>
                                     @if ($item->estado)

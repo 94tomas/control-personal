@@ -127,17 +127,10 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                {{-- <div class="form-group row">
                                     <label for="horarios" class="col-sm-2 col-form-label">Horario</label>
                                     <div class="col-sm-10">
                                         <select class="select2 form-control {{ ($errors->has('horarios')) ? 'is-invalid' : '' }}" name="horarios[]" id="horarios" multiple data-placeholder="- Seleccionar -">
-                                            {{-- @foreach ($horarios as $hr)
-                                            <option value="{{ $hr->id }}" {{ (old('horarios')==$hr->id)?'selected':'' }}>
-                                                @php
-                                                    echo $hr->titulo.': ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
-                                                @endphp
-                                            </option>
-                                            @endforeach --}}
                                         </select>
                                         @if($errors->has('horarios'))
                                             <span class="invalid-feedback" role="alert">
@@ -145,7 +138,11 @@
                                             </span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
+
+                                <label>Horarios</label>
+                                <grid-horarios></grid-horarios>
+
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer text-right">
@@ -172,20 +169,20 @@
     $(function () {
         $('.select2').select2()
 
-        $('#cargo_id').on('input', function() {
-            // console.log($(this).val());
-            var cargo = $(this).val();
-            var url = '/personal/horarios?cargo='+cargo;
-            if (cargo != '') {
-                $('#horarios').empty();
-                $.get(url, function(response) {
-                    // console.log(response);
-                    $('#horarios').append(response);
-                });
-            } else {
-                $('#horarios').empty();
-            }
-        });
+        // $('#cargo_id').on('input', function() {
+        //     // console.log($(this).val());
+        //     var cargo = $(this).val();
+        //     var url = '/personal/horarios?cargo='+cargo;
+        //     if (cargo != '') {
+        //         $('#horarios').empty();
+        //         $.get(url, function(response) {
+        //             // console.log(response);
+        //             $('#horarios').append(response);
+        //         });
+        //     } else {
+        //         $('#horarios').empty();
+        //     }
+        // });
     });
 </script>
 @endsection

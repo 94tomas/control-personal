@@ -39,7 +39,7 @@
     </style>
 </head>
 <body>
-    <div id="app" class="wrapper wrap-auth" style="background-image: url('{{ asset('/img/bg-auth.jpg')}}')">
+    <div id="app" class="wrapper wrap-auth" style="background-image: url('{{ asset('/img/bg-auth2.jpeg')}}')">
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             {{-- <img class="animation__shake" src="{{ asset('/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60" width="60"> --}}

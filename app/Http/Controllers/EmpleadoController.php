@@ -61,17 +61,11 @@ class EmpleadoController extends Controller
             'tel_cel' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:6',
             'fecha_nacimiento' => 'required',
             'genero' => 'required',
-            'cargo_id' => 'required',
-            'horarios' => 'required',
+            'cargo_id' => 'required'
         ]);
 
+        // dd($request);
         // dd($request->horarios);
-        // foreach ($request->horarios as $itemHr) {
-        //     $horario = Horario::select('id', 'hora_inicio', 'hora_fin')
-        //         ->where('id', $itemHr)->first();
-
-        //     dd($horario);
-        // }
 
         $empleado = new Empleado;
         $empleado->nombres = $request->nombres;
@@ -84,8 +78,16 @@ class EmpleadoController extends Controller
         // $empleado->horario_id = $request->horario_id;
         $empleado->save();
 
-        foreach ($request->horarios as $value) {
-            $empleado->horarios()->attach(Horario::where('id', $value)->first());
+        foreach ($request->horarios as $day => $itemHr) {
+            foreach ($itemHr as $val) {
+                $newHr = new Horario;
+                $newHr->dia = $day;
+                $newHr->titulo = $val['titulo'];
+                $newHr->hora_inicio = $val['hora_inicio'];
+                $newHr->hora_fin = $val['hora_fin'];
+                $newHr->empleado_id = $empleado->id;
+                $newHr->save();
+            }
         }
 
         $strCode = '';
@@ -119,9 +121,10 @@ class EmpleadoController extends Controller
     {
         $dEmpleado = Empleado::where('id', $id)
             ->with('horarios')->first();
-        $horarios = Horario::orderBy('created_at', 'DESC')
+        $horarios = Horario::select('id', 'dia', 'titulo', 'hora_inicio', 'hora_fin')
+            ->orderBy('created_at', 'DESC')
             ->where('estado', 1)
-            ->where('cargo_id', $dEmpleado->cargo_id)->get();
+            ->where('empleado_id', $dEmpleado->id)->get();
         $cargos = Cargo::orderBy('created_at', 'DESC')
             ->where('estado', 1)->get();
             
@@ -148,10 +151,10 @@ class EmpleadoController extends Controller
             'tel_cel' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:6',
             'fecha_nacimiento' => 'required',
             'genero' => 'required',
-            'cargo_id' => 'required',
-            'horarios' => 'required',
+            'cargo_id' => 'required'
         ]);
 
+        // dd($request);
         $empleado = Empleado::find($id);
         $empleado->nombres = $request->nombres;
         $empleado->apellidos = $request->apellidos;
@@ -164,9 +167,17 @@ class EmpleadoController extends Controller
         $empleado->estado = ($request->estado)?1:0;
         $empleado->save();
 
-        $empleado->horarios()->detach();
-        foreach ($request->horarios as $value) {
-            $empleado->horarios()->attach(Horario::where('id', $value)->first());
+        Horario::where('empleado_id', $empleado->id)->delete();
+        foreach ($request->horarios as $day => $itemHr) {
+            foreach ($itemHr as $val) {
+                $newHr = new Horario;
+                $newHr->dia = $day;
+                $newHr->titulo = $val['titulo'];
+                $newHr->hora_inicio = $val['hora_inicio'];
+                $newHr->hora_fin = $val['hora_fin'];
+                $newHr->empleado_id = $empleado->id;
+                $newHr->save();
+            }
         }
 
         return redirect('/personal/lista')->with('ok', 'Actualización exitosa.');

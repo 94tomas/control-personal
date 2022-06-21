@@ -16,15 +16,13 @@ class CreateHorariosTable extends Migration
         Schema::create('horarios', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
+            $table->string('dia');
             $table->string('titulo');
             $table->time('hora_inicio');
-            // $table->time('hora_descanso')->nullable();
-            // $table->time('hora_fin_descanso')->nullable();
             $table->time('hora_fin');
-            $table->integer('tolerancia');
             $table->boolean('estado')->default(true);
-            $table->foreignId('cargo_id')->nullable();
-            $table->foreign('cargo_id')->references('id')->on('cargos')->onDelete('set null');
+            $table->foreignId('empleado_id')->nullable();
+            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
             $table->timestamps();
         });
     }

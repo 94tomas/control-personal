@@ -80,6 +80,17 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $dias = array(
+                        'Mon' => 'Lunes',
+                        'Tue' => 'Martes',
+                        'Wed' => 'Miércoles',
+                        'Thu' => 'Jueves',
+                        'Fri' => 'Viernes',
+                        'Sat' => 'Sábado',
+                        'Sun' => 'Domingo',
+                    );
+                @endphp
                 @foreach ($lista as $item)
                     <tr>
                         <td style="border: 1px solid;">{{ $item->cod_empleado }}</td>
@@ -89,7 +100,7 @@
                             @foreach ($item->horarios as $row)
                             <div class="row">
                                 <div class="col-6">{{ $row->titulo }}</div>
-                                <div class="col-6">{{ $row->hora_inicio }} - {{ $row->hora_fin }}</div>
+                                <div class="col-6">{{ $dias[$row->dia] }} {{ $row->hora_inicio }} - {{ $row->hora_fin }}</div>
                             </div>
                             @endforeach
                         </td>

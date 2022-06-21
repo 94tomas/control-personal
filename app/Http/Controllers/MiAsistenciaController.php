@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Empleado;
 use App\Models\Asistencia;
+use App\Models\Horario;
 
 class MiAsistenciaController extends Controller
 {
@@ -24,9 +25,16 @@ class MiAsistenciaController extends Controller
         }
         
         $emp = Empleado::select('id', 'cod_empleado')
-            ->with('horarios')
             ->where('cod_empleado', $request->cod_empleado)
             ->first();
+        
+        $listaHorarios = Horario::where('empleado_id', $emp->id)
+            ->where('dia', date('D'))
+            ->get();
+
+        if (count($listaHorarios) <= 0) {
+            return back()->with('error', 'No cuenta con ningún horario para registrar en este día.');
+        }
         
         // cantidad ya marcadas
         $now = Carbon::parse(date('Y-m-d'))->format('Y-m-d H:i:s');
@@ -39,7 +47,7 @@ class MiAsistenciaController extends Controller
         // cantidad que debe marcar
         $cantMark = 0;
         $arrayHrs = array(); 
-        foreach ($emp->horarios as $itemHr) {
+        foreach ($listaHorarios as $itemHr) {
             $cantMark += ($itemHr->hora_inicio)?1:0;
             $cantMark += ($itemHr->hora_fin)?1:0;
 

@@ -77,7 +77,7 @@
                                 <th>Fecha</th>
                                 <th>Código</th>
                                 <th>Personal</th>
-                                <th>Horario del personal</th>
+                                <th>Hora a marcar</th>
                                 <th>Hora de registro</th>
                                 <th>Tolerancia</th>
                                 <th class="text-right">Registro</th>

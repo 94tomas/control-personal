@@ -117,7 +117,7 @@
                                             <option value="">- Seleccionar -</option>
                                             @foreach ($cargos as $cg)
                                             <option value="{{ $cg->id }}" {{ ($empleado->cargo_id==$cg->id)?'selected':'' }}>
-                                                {{ $cg->nombre_cargo }} - tarifa {{ $cg->tarifa }}
+                                                {{ $cg->nombre_cargo }} - {{ $cg->descripcion }}
                                             </option>
                                             @endforeach
                                         </select>
@@ -128,32 +128,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="horarios" class="col-sm-2 col-form-label">Horario</label>
-                                    <div class="col-sm-10">
-                                        @php
-                                            $hrsArray = [];
-                                            foreach ($empleado->horarios as $k) {
-                                                array_push($hrsArray, $k->id);
-                                            }
-                                        @endphp
-                                        <select class="select2 form-control {{ ($errors->has('horarios')) ? 'is-invalid' : '' }}" name="horarios[]" id="horarios" multiple>
-                                            <option value="">- Seleccionar -</option>
-                                            @foreach ($horarios as $hr)
-                                            <option value="{{ $hr->id }}" {{ (in_array($hr->id, $hrsArray))?'selected':'' }}>
-                                                @php
-                                                    echo $hr->titulo.': ' .$hr->hora_inicio. ' - ' .$hr->hora_fin;
-                                                @endphp
-                                            </option>
-                                            @endforeach
-                                        </select>
-                                        @if($errors->has('horarios'))
-                                            <span class="invalid-feedback" role="alert">
-                                                {{ $errors->first('horarios') }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <div class="custom-control custom-switch">
                                         @php
@@ -163,6 +138,9 @@
                                         <label class="custom-control-label" for="estado">Estado</label>
                                     </div>
                                 </div>
+
+                                <label>Horarios</label>
+                                <grid-horarios-edit horarios="{{ $horarios }}"></grid-horarios-edit>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer text-right">

@@ -62,13 +62,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/personal/horarios', 'EmpleadoController@horariosPorCargo');
 
         // route horarios
-        Route::get('horarios/lista', 'HorariosController@index');
-        Route::get('horarios/nuevo', 'HorariosController@create');
-        Route::post('horarios', 'HorariosController@store')->name('nuevo-horario');
-        Route::get('horarios/editar/{id}', 'HorariosController@edit');
-        Route::put('horarios/{id}', 'HorariosController@update')->name('editar-horario');
-        Route::delete('horarios/{id}', 'HorariosController@destroy')->name('eliminar-horario');
-        Route::get('/horarios/report/pdf', 'HorariosController@reportHorarios');
+        // Route::get('horarios/lista', 'HorariosController@index');
+        // Route::get('horarios/nuevo', 'HorariosController@create');
+        // Route::post('horarios', 'HorariosController@store')->name('nuevo-horario');
+        // Route::get('horarios/editar/{id}', 'HorariosController@edit');
+        // Route::put('horarios/{id}', 'HorariosController@update')->name('editar-horario');
+        // Route::delete('horarios/{id}', 'HorariosController@destroy')->name('eliminar-horario');
+        // Route::get('/horarios/report/pdf', 'HorariosController@reportHorarios');
 
         // route cargos
         Route::get('cargos/lista', 'CargosController@index');

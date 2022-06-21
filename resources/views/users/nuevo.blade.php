@@ -224,10 +224,10 @@
                                                 <input class="form-check-input" type="checkbox" id="personal" name="permissions[]" value="personal">
                                                 <label class="form-check-label" for="personal">Personal</label>
                                             </div>
-                                            <div class="form-check form-check-inline">
+                                            {{-- <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="checkbox" id="horarios" name="permissions[]" value="horarios">
                                                 <label class="form-check-label" for="horarios">Horarios</label>
-                                            </div>
+                                            </div> --}}
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="checkbox" id="cargos" name="permissions[]" value="cargos">
                                                 <label class="form-check-label" for="cargos">Cargos</label>

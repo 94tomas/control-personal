@@ -11,10 +11,4 @@ class Cargo extends Model
     {
         return $this->hasMany('App\Models\Empleado');
     }
-
-    // horario
-    public function horario()
-    {
-        return $this->hasMany('App\Models\Horario');
-    }
 }

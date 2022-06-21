@@ -18,12 +18,12 @@ class Empleado extends Model
     // }
 
     /**
-     * The horarios that belong to the Empleado
+     * Get all of the horarios for the Empleado
      *
      */
     public function horarios()
     {
-        return $this->belongsToMany(Horario::class, 'horario_empleado');
+        return $this->hasMany(Horario::class);
     }
     // asistencia
     public function asistencia()

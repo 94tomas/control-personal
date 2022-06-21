@@ -49,55 +49,123 @@
                 </li>
 
                 @if (in_array('roles', $listRoles))
-                <li class="nav-item">
-                    <a href="/roles/lista" class="nav-link {{ Request::is('roles/*') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('roles/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::is('roles/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-shield"></i>
-                        <p>Roles del sistema</p>
+                        <p>
+                            Roles del sistema
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/roles/nuevo" class="nav-link {{ (Request::is('roles/nuevo') || Request::is('almacen/categorias/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Nuevo</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/roles/lista" class="nav-link {{ (Request::is('roles/lista') || Request::is('almacen/productos/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Listar roles</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endif
 
                 @if (in_array('usuarios', $listRoles))
-                <li class="nav-item">
-                    <a href="/usuarios/lista" class="nav-link {{ Request::is('usuarios/*') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('usuarios/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::is('usuarios/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
-                        <p>Usuarios del sistema</p>
+                        <p>
+                            Usuarios del sistema
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/usuarios/nuevo" class="nav-link {{ (Request::is('usuarios/nuevo') || Request::is('almacen/categorias/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Nuevo</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/usuarios/lista" class="nav-link {{ (Request::is('usuarios/lista') || Request::is('almacen/productos/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Listar usuarios</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endif
-                
-                @if (in_array('asistencias', $listRoles))
-                <li class="nav-item">
-                    <a href="/asistencias" class="nav-link {{ Request::is('asistencias') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-calendar"></i>
-                        <p>Asistencia</p>
+
+                @if (in_array('cargos', $listRoles))
+                <li class="nav-item {{ Request::is('cargos/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::is('cargos/*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-briefcase"></i>
+                        <p>
+                            Cargos
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/cargos/nuevo" class="nav-link {{ (Request::is('cargos/nuevo') || Request::is('almacen/categorias/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Nuevo</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/cargos/lista" class="nav-link {{ (Request::is('cargos/lista') || Request::is('almacen/productos/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Listar cargos</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endif
                 
                 @if (in_array('personal', $listRoles))
-                <li class="nav-item">
-                    <a href="/personal/lista" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
+                <li class="nav-item {{ Request::is('personal/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Request::is('personal/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
-                        <p>Personal</p>
+                        <p>
+                            Personal
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/personal/nuevo" class="nav-link {{ (Request::is('personal/nuevo') || Request::is('almacen/categorias/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Nuevo</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/personal/lista" class="nav-link {{ (Request::is('personal/lista') || Request::is('almacen/productos/*')) ? 'active' : '' }}">
+                                <i class="fa fa-angle-right nav-icon"></i>
+                                <p>Listar personal</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 @endif
                 
-                @if (in_array('horarios', $listRoles))
+                {{-- @if (in_array('horarios', $listRoles))
                 <li class="nav-item">
                     <a href="/horarios/lista" class="nav-link {{ Request::is('horarios/*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-clock-o"></i>
                         <p>Horarios</p>
                     </a>
                 </li>
-                @endif
-                
-                @if (in_array('cargos', $listRoles))
+                @endif --}}
+
+                @if (in_array('asistencias', $listRoles))
                 <li class="nav-item">
-                    <a href="/cargos/lista" class="nav-link {{ Request::is('cargos/*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-briefcase"></i>
-                        <p>Cargos</p>
+                    <a href="/asistencias" class="nav-link {{ Request::is('asistencias') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-calendar"></i>
+                        <p>Asistencia</p>
                     </a>
                 </li>
                 @endif

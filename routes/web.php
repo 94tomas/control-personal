@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('personal', 'EmpleadoController@store')->name('nuevo-personal');
         Route::get('personal/editar/{id}', 'EmpleadoController@edit');
         Route::put('personal/{id}', 'EmpleadoController@update')->name('editar-personal');
-        Route::delete('personal/{id}', 'EmpleadoController@destroy');
+        Route::delete('personal/{id}', 'EmpleadoController@destroy')->name('eliminar-personal');
         Route::get('/personal/report/pdf', 'EmpleadoController@reportPersonal');
         Route::get('/personal/horarios', 'EmpleadoController@horariosPorCargo');
 

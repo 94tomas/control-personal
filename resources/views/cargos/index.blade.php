@@ -100,7 +100,12 @@
                                         <div class="dropdown-menu">
                                             <!-- Dropdown menu links -->
                                             <a class="dropdown-item" href="/cargos/editar/{{ $item->id }}">Editar</a>
-                                            <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#delModal" data-id="{{ $item->id }}">Eliminar</a>
+                                            {{-- <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#delModal" data-id="{{ $item->id }}">Eliminar</a> --}}
+                                            <a class="dropdown-item" href="javascript:;" onclick="if(confirm('El cargo será eliminado permanentemente del sistema, ¿Desea continuar?')){event.preventDefault(); document.getElementById('form_delete_{{ $item->id }}').submit();}">Eliminar</a>
+                                            <form id="form_delete_{{ $item->id }}" action="{{ route('eliminar-cargo', $item->id) }}" method="POST" class="d-none">
+                                                @csrf
+                                                <input name="_method" type="hidden" value="DELETE">
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
@@ -190,7 +195,7 @@
             var button = $(event.relatedTarget) // Button that triggered the modal
             var recipient = button.data('id') // Extract info from data-* attributes
             var modal = $(this)
-            modal.find('.modal-content form').attr('action', `${window.location.protocol}//${window.location.hostname}/cargos/${recipient}`)
+            modal.find('.modal-content form').attr('action', `${window.location.protocol}//${window.location.hostname}${(window.location.port)?':'+window.location.port:''}/cargos/${recipient}`)
         })
     });
 </script>

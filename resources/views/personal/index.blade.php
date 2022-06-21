@@ -74,7 +74,11 @@
                             <tr>
                                 <td>{{ $item->cod_empleado }}</td>
                                 <td>{{ $item->nombres }} {{ $item->apellidos }}</td>
+                                @if ($item->cargo)
                                 <td>{{ $item->cargo->nombre_cargo }}</td>
+                                @else
+                                <td></td>
+                                @endif
                                 <td>
                                     @php
                                         $dias = array(
@@ -114,7 +118,12 @@
                                         <div class="dropdown-menu">
                                             <!-- Dropdown menu links -->
                                             <a class="dropdown-item" href="/personal/editar/{{ $item->id }}">Editar</a>
-                                            <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#removeModal" data-id="{{ $item->id }}">Eliminar</a>
+                                            {{-- <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#removeModal" data-id="{{ $item->id }}">Eliminar</a> --}}
+                                            <a class="dropdown-item" href="javascript:;" onclick="if(confirm('El personal será eliminado permanentemente del sistema, ¿Desea continuar?')){event.preventDefault(); document.getElementById('form_delete_{{ $item->id }}').submit();}">Eliminar</a>
+                                            <form id="form_delete_{{ $item->id }}" action="{{ route('eliminar-personal', $item->id) }}" method="POST" class="d-none">
+                                                @csrf
+                                                <input name="_method" type="hidden" value="DELETE">
+                                            </form>
                                         </div>
                                     </div>
                                     {{-- <a href="/personal/editar/{{ $item->id }}" class="btn btn-primary btn-xs" style="width:25px;">
